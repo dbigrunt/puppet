@@ -1,0 +1,3 @@
+node base {
+    include sudo
+}
