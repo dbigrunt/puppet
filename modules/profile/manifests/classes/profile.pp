@@ -1,10 +1,14 @@
 class profile {
 
-	file {"/etc/profile.d/$name.sh":
-		ensure => present,
-		owner => 'root',
-		group => 'root',
-		source => "puppet:///modules/profile/profile.d/$name.sh",
-	}
+    file { "/etc/profile.d":
+        ensure    => directory,
+        #source    => "puppet:///files/profile.d",
+        source    => "/etc/puppet/files/profile.d",
+        recurse   => "false",
+        purge     => "false",
+        ignore    => [".svn","svn"],
+        owner     => "root",
+        group     => "root",
+    }
 
 }
