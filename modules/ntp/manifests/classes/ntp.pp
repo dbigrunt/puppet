@@ -4,7 +4,7 @@
 #        ntp-server { $hostname: servers => [ "ntp1", "ntp2" ] }
 
 class ntp-client {
-    ntpd { $hostname: servers => [ "ntp.egwn.net" ] }
+    ntpd { $hostname: servers => [ "0.centos.pool.ntp.org" ] }
 }
 
 define ntp-server ( $servers ) {
@@ -35,7 +35,8 @@ define ntpd ( $servers ) {
 
     # Logrotate for our custom log file
     file { "/etc/logrotate.d/ntpd":
-        source => "puppet:///files/etc/logrotate.d/ntpd",
+        #source => "puppet:///files/etc/logrotate.d/ntpd",
+        source => "/etc/puppet/files/etc/logrotate.d/ntpd",
     }
 
 }

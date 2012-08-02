@@ -18,8 +18,8 @@ node base {
 
     import "profile"
     include profile
-	#import "ntp"
-	#include ntp
+	import "ntp"
+	include ntp-client
 
     file { "/tmp":
 		ensure => directory,
