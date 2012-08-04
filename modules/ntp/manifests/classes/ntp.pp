@@ -35,8 +35,7 @@ define ntpd ( $servers ) {
 
     # Logrotate for our custom log file
     file { "/etc/logrotate.d/ntpd":
-        #source => "puppet:///files/etc/logrotate.d/ntpd",
-        source => "/etc/puppet/files/etc/logrotate.d/ntpd",
+        source => "puppet:///files/etc/logrotate.d/ntpd",
     }
 
 }

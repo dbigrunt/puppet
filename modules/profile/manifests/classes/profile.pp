@@ -2,8 +2,7 @@ class profile {
 
     file { "/etc/profile.d":
         ensure    => directory,
-        #source    => "puppet:///files/profile.d",
-        source    => "/etc/puppet/files/etc/profile.d",
+        source    => "puppet:///files/etc/profile.d",
         recurse   => "false",
         purge     => "false",
         ignore    => [".svn","svn"],
