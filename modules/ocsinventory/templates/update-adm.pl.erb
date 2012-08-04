@@ -1,4 +1,6 @@
 #!/usr/bin/perl
+# This script updates the ocsinv.adm with 2 custom fields before it is sent to the ocs server
+# (administrative data fields on the server interface)
 
 use XML::Simple;
 
@@ -6,17 +8,17 @@ $file_url = '/var/lib/ocsinventory-agent/http:__<%= ocs_server %>_ocsinventory/o
 $xml = new XML::Simple;
 $data = $xml->XMLin($file_url,forcearray=>1,KeepRoot=>1);
 
-$qasname=`/opt/quest/bin/vastool -u host/ attrs host/ | grep cn\: | cut -d\\  -f2`;
-$qascontainer=`/opt/quest/bin/vastool -u host/ attrs host/ | grep distinguishedName\: | cut -d\\  -f2`;
-chomp($qasname);
-chomp($qascontainer);
+$custom1=`your command`;
+$custom2=`your command`;
+chomp($custom1);
+chomp($custom2);
 
 for (@{$data->{ADM}[0]->{ACCOUNTINFO}}) {
         if ( $_->{KEYNAME}[0] eq 'fields_3' ) {
-                $_->{KEYVALUE} = [$qasname];
+                $_->{KEYVALUE} = [$custom1];
         }
         if ($_->{KEYNAME}[0] eq 'fields_4') {
-                $_->{KEYVALUE} = [$qascontainer];
+                $_->{KEYVALUE} = [$custom2];
         }
 }
 

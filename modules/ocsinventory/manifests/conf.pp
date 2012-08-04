@@ -1,11 +1,11 @@
 class ocsinventory::conf {
 
-	$ocs_server=extlookup("ocsinventory::conf::server","inventory-1.mit.esportz.com")
-	$install_ocs_agent=extlookup("ocsinventory::agent::install","no")
-	$ocsinventory_tag=extlookup("ocsinventory::conf::tag","default" )
+	#$ocs_server=extlookup("ocsinventory::conf::server","inventory-1.mit.esportz.com")
+	#$install_ocs_agent=extlookup("ocsinventory::agent::install","no")
+	#$ocsinventory_tag=extlookup("ocsinventory::conf::tag","default" )
 
-	concat::puppetinfo::register { "ocsinventory server": content=>"OCS Inventory server : ${ocs_server}" }
-	concat::puppetinfo::register { "ocsinventory server tag": content=>"OCS Inventory tag : ${ocsinventory_tag}" }
+	#concat::puppetinfo::register { "ocsinventory server": content=>"OCS Inventory server : ${ocs_server}" }
+	#concat::puppetinfo::register { "ocsinventory server tag": content=>"OCS Inventory tag : ${ocsinventory_tag}" }
 
         file { "/etc/ocsinventory":
                 owner  => root,

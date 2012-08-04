@@ -1,6 +1,6 @@
 [main]
 
-    server=mundodisea.com
+    server=<%= puppetserver %>
 
     # Where Puppet stores dynamic and growing data.
     # The default value is '/var/puppet'.
@@ -23,7 +23,7 @@
     factpath   = $vardir/lib/facter
 
 [master]
-    certname=mundodisea.com
+    certname=<%= puppetserver %>
 
 
 [agent]

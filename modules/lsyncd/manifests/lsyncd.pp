@@ -23,14 +23,14 @@ define lsyncd::server (
     file { "/etc/lsyncd.conf":
         require => Package["lsyncd"],
         notify  => Service["lsyncd"],
-        content => template("/etc/puppet/resources/lsyncd/templates/lsyncd.conf.erb"),
+        content => template("/etc/puppet/files/etc/lsyncd.conf.erb"),
     }
 
     file { "/etc/init.d/lsyncd":
         owner   => root,
 	    group   => root,
 	    mode    => 755,
-        content => template("/etc/puppet/resources/lsyncd/files/lsyncd-init"),
+        content => template("/etc/puppet/files/etc/init.d/lsyncd"),
     }
 
 
