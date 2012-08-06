@@ -22,6 +22,20 @@
     pluginsync = true
     factpath   = $vardir/lib/facter
 
+
+    # The Foreman, puppetmaster only
+    reports=log, foreman
+
+    #storeconfigs = true
+    #dbadapter = mysql
+    #dbuser = puppet
+    #dbpassword = r5yT1oYt
+    #dbserver = localhost
+    #dbsocket = /var/lib/mysql/mysql.sock
+    #rrddir=/var/lib/puppet/rrd
+    #rrdinterval=$runinterval
+    #rrdgraph=true 
+
 [master]
     certname=<%= puppetserver %>
 
@@ -40,3 +54,6 @@
     localconfig = $vardir/localconfig
 
     modulepath = /etc/puppet/modules
+
+    # The Foreman
+    report = true
