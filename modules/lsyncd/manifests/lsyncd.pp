@@ -28,8 +28,8 @@ define lsyncd::server (
 
     file { "/etc/init.d/lsyncd":
         owner   => root,
-	    group   => root,
-	    mode    => 755,
+        group   => root,
+        mode    => 755,
         content => template("/etc/puppet/files/etc/init.d/lsyncd"),
     }
 
@@ -41,7 +41,7 @@ define lsyncd::server (
         force   => true,
         owner   => "repomaster",
         group   => "apache",
-	}
+    }
 
 }
 
