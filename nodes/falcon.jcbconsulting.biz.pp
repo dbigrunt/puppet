@@ -33,28 +33,30 @@ node 'falcon.jcbconsulting.biz' inherits base {
 
 
     cron {
-        "backup sql clean":
-          environment => "MAILTO=di4blo@gmail.com",
-          command => "find /var/backup/rdiff/local/mysql/ -type f -mtime +7 -exec rm -f {} \;",
-          user    => root,
-          hour    => 2,
-          minute  => 40,
-          ensure  => present;
 
-        ### esborrem els mails d'spam que estan bouncejan ###
+        # Si algun domini caduca en 30 dies o menys, ens avisa. Ojo, els .es no els mira
+        "whois":
+          environment => "MAILTO=di4blo@gmail.com",
+          command     => "/opt/scripts/whois.sh",
+          user        => root,
+          hour        => 3,
+          minute      => 10,
+          ensure      => present;
+
+       # cada dia fem un backup de la bbdd 
+        "backup sql":
+          command     => "/opt/scripts/backup_sql.sh",
+          user        => root,
+          hour        => 2,
+          minute      => 20,
+          ensure      => present;
+
+        # esborrem els mails d'spam que estan bouncejan ###
         "qmailclean":
           command => "/opt/scripts/qmail/qmailclean.sh",
           user    => root,
           hour    => 2,
           minute  => 50,
-          ensure  => present;
-
-        # Si algun domini caduca en 30 dies o menys, ens avisa. Ojo, els .es no els mira
-        "whois":
-          command => "/opt/scripts/whois.sh",
-          user    => root,
-          hour    => 3,
-          minute  => 10,
           ensure  => present;
 
         # esborrem els backups mes antics de 2 setmanes
@@ -67,21 +69,13 @@ node 'falcon.jcbconsulting.biz' inherits base {
 
         # Backup servidor namesti
         "rdiff-backup namesti":
-          command => "rdiff-backup --print-statistics --exclude=/lost+found --exclude=/var/log --exclude=/proc --exclude=/sys --exclude=/usr/backup --exclude-special-files --exclude-other-filesystems --force ks391417.kimsufi.com::/  /var/backup/rdiff/remot/ks391417.kimsufi.com",
+          command => "rdiff-backup --print-statistics --exclude=/lost+found --exclude=/var/log --exclude=/proc --exclude=/sys --exclude=/var/backup/rdiff --exclude-special-files --exclude-other-filesystems --force ks391417.kimsufi.com::/  /var/backup/rdiff/remot/ks391417.kimsufi.com",
           user    => root,
           hour    => 5,
           minute  => 30,
           ensure  => present;
 
-        ## cada dia fem un backup de la bbdd i esborrem els mes vells de 7dies
-        "backup sql":
-          command => "/opt/scripts/backup_sql.sh",
-          user    => root,
-          hour    => 2,
-          minute  => 20,
-          ensure  => present;
-
-        ### Logins Orange FTP ###
+        # Logins Orange FTP
         "logins orange ftp":
           command => "/opt/scripts/logins_ftp.sh orange jcaguilera@zedis.com",
           user    => root,
