@@ -1,6 +1,10 @@
 node 'falcon.jcbconsulting.biz' inherits base {
 
+        																				   # os_specific: related to kernel modules, which we don't use
+	$administrator_email       = 'di4blo@gmail.com'
     $puppet_fileserver_allowed = [ '*.mundodisea.com', '*.jcbconsulting.biz', 'ks391417.kimsufi.com' ] 
+    $rkhunter_disable_tests    = [ 'suspscan hidden_procs deleted_files packet_cap_apps apps os_specific' ]
+    $rkhunter_xinetd_allowed   = [ 'echo','ftp_psa','poppassd_psa','smtp_psa','smtps_psa', 'submission_psa' ]
 
     include puppet::master
 
@@ -8,6 +12,75 @@ node 'falcon.jcbconsulting.biz' inherits base {
     clamav::scan { "$name":
         directory => "/var/www/vhosts",
     }
+
+    include rkhunter
+
+    import "/etc/puppet/manifests/tga.es.pp"
+
+#En un futur fer classe named, o inclus considerar powerdns
+#Recordar que aquest logrotate s'ha fet perque hem afegit estadistiques a /etc/named.conf:
+#logging {
+#
+#    channel debug_log {
+#        file "/var/log/debug.log";
+#        severity debug 3;
+#        print-category yes;
+#        print-severity yes;
+#        print-time yes;
+#    };
+#
+#    channel query_log {
+#        file "/var/log/query.log";
+#        severity dynamic;
+#        print-category yes;
+#        print-severity yes;
+#        print-time yes;
+#    };
+#
+#    category resolver { debug_log; };
+#    category security { debug_log; };
+#    category queries { query_log; };
+#
+#};
+
+
+    file { "/etc/logrotate.d/named":
+        ensure  => file,
+        owner   => "root",
+        group   => "named",
+        mode    => 644,
+        content => file("/etc/puppet/files/etc/logrotate.d/named"),
+    }
+
+    file { "/etc/logrotate.d/psa-ftp":
+        ensure  => file,
+        owner   => "root",
+        group   => "root",
+        mode    => 644,
+        content => file("/etc/puppet/files/etc/logrotate.d/psa-ftp"),
+    }
+
+    file { "/etc/logrotate.d/psa-maillog":
+        ensure  => file,
+        owner   => "root",
+        group   => "root",
+        mode    => 644,
+        content => file("/etc/puppet/files/etc/logrotate.d/psa-maillog"),
+    }
+
+#    include nginx
+#
+#    nginx::site { "mundodisea":
+#        domain => "mundodisea.com",
+#        aliases => ["www.mundodisea.com"],
+#        default_vhost => true,
+#        root => "/var/www/vhosts/mundodisea.com/httpdocs/",
+#        owner => "mundodisea",
+#        group => "apache",
+#        ssl => false,
+#        #ssl_certificate => "/etc/nginx/cert/uggedal.com.pem",
+#        #ssl_certificate_key => "/etc/nginx/cert/uggedal.com.key",
+#    }
 
     import "/etc/puppet/modules/motd/manifests/definitions/motd.pp"
     motd::populate { "$domain": 
@@ -27,7 +100,17 @@ node 'falcon.jcbconsulting.biz' inherits base {
         '(ho hauria de fer el plesk pero no ho fa)',
         '---',
         'bodegasplv.com necessita PHP >= 5.2. Esta instalat com a CGI a /var/www/vhosts/bodegasplv.com/cgi-bin/ i activat via htaccess',
+        'pero ja no esta al nostre servidor. Desactivat el 9/10/2012',
         '---',
+        '10/10/2012: .Afegit motorelectricopasion.com  Info a doku.php?id=personal:negocis&#motorelectricopasioncom',
+        '---',
+        '18/10/2012: Esborrat /var/tmp perque el 24/sep el sistema va ser compromes via apache (probablement Plesk).76Gb de warez. memodipper trobat xo no aconsegueix root',
+        'He desinstalat gcc', 
+        '---',
+        '20/10/2012: Despres dactualitzar Plesk, la llicencia no es valida. Com que OVH no contesta decideixo instalar lighttpd',
+        'el php-cgi (es el que fa servir lighttpd) ara es un symlink a la ultima versio que vaig compilar per motorelectricopasion: /usr/bin/php-cgi -> php5.4.7-cgi',
+        '22/10/2012: Actualitzen la llicencia i torno a posar Apache',
+        '23/10/2012: /usr/local/psa/var/log/maillog no es rotava. Afegeixo /etc/logrotate.d/psa-maillog, que funciona, pero maillog ja no sactualitza mes',
       ]
     }
 
@@ -61,7 +144,7 @@ node 'falcon.jcbconsulting.biz' inherits base {
 
         # esborrem els backups mes antics de 2 setmanes
         "esborra-rdiff":
-          command => "/opt/scripts/rdiff-esborra.sh /var/backup/rdiff/remot/ks391417.kimsufi.com 2W",
+          command => "rdiff-backup --force --remove-older-than 2W /var/backup/rdiff/remot/ks391417.kimsufi.com/",
           user    => root,
           hour    => 5,
           minute  => 20,
@@ -69,7 +152,7 @@ node 'falcon.jcbconsulting.biz' inherits base {
 
         # Backup servidor namesti
         "rdiff-backup namesti":
-          command => "rdiff-backup --print-statistics --exclude=/lost+found --exclude=/var/log --exclude=/proc --exclude=/sys --exclude=/var/backup/rdiff --exclude-special-files --exclude-other-filesystems --force ks391417.kimsufi.com::/  /var/backup/rdiff/remot/ks391417.kimsufi.com",
+          command => "rdiff-backup --print-statistics --exclude=/lost+found --exclude=/var/log --exclude=/proc --exclude=/sys --exclude=/var/backup/rdiff  --exclude=/var/named/run-root/proc  --exclude-special-files --force ks391417.kimsufi.com::/  /var/backup/rdiff/remot/ks391417.kimsufi.com",
           user    => root,
           hour    => 5,
           minute  => 30,

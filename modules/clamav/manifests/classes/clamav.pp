@@ -13,22 +13,6 @@ class clamav {
         require   => Package["clamd"]
 	}
 
-    file { "/var/log/clamav/":
-        owner   => 'clamav',
-        group   => 'clamav',
-        mode    => 775,
-		ensure  => directory,
-		recurse => true,
-    }
-
-    file { "/var/lib/clamav/":
-        owner   => 'clam',
-        group   => 'clamav',
-        mode    => 775,
-        ensure  => directory,
-        recurse => false,
-    }
-
     user { clam:
         comment => "Clam Anti Virus Checker",
         home    => "/var/clamav",
@@ -49,4 +33,21 @@ class clamav {
         #gid     => 118,
         require => user[clam],
     }
+
+    file { "/var/log/clamav/":
+        owner   => 'clamav',
+        group   => 'clamav',
+        mode    => 775,
+		ensure  => directory,
+		recurse => true,
+    }
+
+    file { "/var/lib/clamav/":
+        owner   => 'clam',
+        group   => 'clamav',
+        mode    => 775,
+        ensure  => directory,
+        recurse => false,
+    }
+
 }

@@ -1,0 +1,11 @@
+/usr/local/psa/var/log/xferlog {
+    missingok
+    daily
+    rotate  10
+    size    2M
+    compress
+    create 0644 root root
+    postrotate
+        /bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true
+    endscript
+}
