@@ -1,5 +1,7 @@
 class puppet {
 
-    include puppet::install, puppet::config, puppet::service
+    include puppet::install
+    include puppet::config
+    include puppet::service
 
 }

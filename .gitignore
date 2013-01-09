@@ -1,0 +1,4 @@
+auth.conf
+fileserver.conf
+puppet.conf
+sysconfig-pupetmasterd.conf

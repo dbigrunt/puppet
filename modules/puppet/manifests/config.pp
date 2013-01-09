@@ -4,7 +4,7 @@ class puppet::config {
         ensure  => present,
         owner   => "puppet",
         group   => "puppet",
-        content => template("/etc/puppet/files/etc/puppet/puppet.conf.erb"),
+        content => template("puppet/puppet.conf.erb"),
         require => Class["puppet::install"],
         notify  => Class["puppet::service"],
     }

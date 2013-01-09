@@ -4,7 +4,7 @@ class puppet::fileserver {
         ensure  => present,
         owner   => "root",
         group   => "root",
-        content => template("/etc/puppet/files/etc/puppet/fileserver.conf.erb"),
+        content => template("puppet/fileserver.conf.erb"),
         require => Class["puppet::install"],
         notify  => Class["puppet::service"],
     }

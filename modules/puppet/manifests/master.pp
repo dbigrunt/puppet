@@ -19,9 +19,9 @@ class puppet::master {
         ensure  => present,
         owner   => "root",
         group   => "root",
-        content => template("/etc/puppet/files/etc/sysconfig/puppetmaster"),
+        content => template("puppet/sysconfig-puppetmaster.erb"),
         require => Class["puppet::install"],
-        notify  => Service["ntpd"],
+        notify  => [ Service[puppet],Service[puppetmaster] ],
     }
 
 }
