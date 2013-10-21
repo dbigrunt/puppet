@@ -1,21 +1,19 @@
 node 'falcon.jcbconsulting.biz' inherits base {
 
-    $administrator_email       = 'di4blo@gmail.com'
-    $puppet_fileserver_allowed = [ '*.mundodisea.com', '*.jcbconsulting.biz', 'ks391417.kimsufi.com' ] 
-    $rkhunter_xinetd_allowed   = [ 'echo','ftp_psa','poppassd_psa','smtp_psa','smtps_psa', 'submission_psa' ]
-    $rkhunter_disable_tests    = [ 'suspscan hidden_procs deleted_files packet_cap_apps apps os_specific' ]
-    # os_specific: related to kernel modules, which we don't use
+  $administrator_email       = 'di4blo@gmail.com'
+  $puppet_fileserver_allowed = [ '*.mundodisea.com', '*.jcbconsulting.biz', 'ks391417.kimsufi.com' ] 
+  $rkhunter_xinetd_allowed   = [ 'echo','ftp_psa','poppassd_psa','smtp_psa','smtps_psa', 'submission_psa' ]
+  $rkhunter_disable_tests    = [ 'suspscan hidden_procs deleted_files packet_cap_apps apps os_specific' ]
+  # os_specific: related to kernel modules, which we don't use
 
-    include puppet::master
-
-    include clamav
-    clamav::scan { "$name":
-        directory => "/var/www/vhosts",
-    }
-
-    include rkhunter
-
-    import "/etc/puppet/manifests/tga.es.pp"
+  include puppet::master
+  import 'clamav'
+  include clamav
+  clamav::scan { "$name":
+    directory => "/var/www/vhosts",
+  }
+  include rkhunter
+  import "/etc/puppet/manifests/tga.es.pp"
 
 #En un futur fer classe named, o inclus considerar powerdns
 #Recordar que aquest logrotate s'ha fet perque hem afegit estadistiques a /etc/named.conf:
@@ -44,29 +42,29 @@ node 'falcon.jcbconsulting.biz' inherits base {
 #};
 
 
-    file { "/etc/logrotate.d/named":
-        ensure  => file,
-        owner   => "root",
-        group   => "named",
-        mode    => 644,
-        content => file("/etc/puppet/files/etc/logrotate.d/named"),
-    }
+  file { "/etc/logrotate.d/named":
+    ensure  => file,
+    owner   => "root",
+    group   => "named",
+    mode    => 644,
+    content => file("/etc/puppet/files/etc/logrotate.d/named"),
+  }
 
-    file { "/etc/logrotate.d/psa-ftp":
-        ensure  => file,
-        owner   => "root",
-        group   => "root",
-        mode    => 644,
-        content => file("/etc/puppet/files/etc/logrotate.d/psa-ftp"),
-    }
+  file { "/etc/logrotate.d/psa-ftp":
+    ensure  => file,
+    owner   => "root",
+    group   => "root",
+    mode    => 644,
+    content => file("/etc/puppet/files/etc/logrotate.d/psa-ftp"),
+  }
 
-    file { "/etc/logrotate.d/psa-maillog":
-        ensure  => file,
-        owner   => "root",
-        group   => "root",
-        mode    => 644,
-        content => file("/etc/puppet/files/etc/logrotate.d/psa-maillog"),
-    }
+  file { "/etc/logrotate.d/psa-maillog":
+    ensure  => file,
+    owner   => "root",
+    group   => "root",
+    mode    => 644,
+    content => file("/etc/puppet/files/etc/logrotate.d/psa-maillog"),
+  }
 
 #    include nginx
 #
@@ -111,15 +109,17 @@ node 'falcon.jcbconsulting.biz' inherits base {
         'el php-cgi (es el que fa servir lighttpd) ara es un symlink a la ultima versio que vaig compilar per motorelectricopasion: /usr/bin/php-cgi -> php5.4.7-cgi',
         '22/10/2012: Actualitzen la llicencia i torno a posar Apache',
         '23/10/2012: /usr/local/psa/var/log/maillog no es rotava. Afegeixo /etc/logrotate.d/psa-maillog, que funciona, pero maillog ja no sactualitza mes',
+        '07/03/2013: /var/qmail/control/smtproutes: zedis.com:217.116.0.152. Per si arriba algun mail reenviarlo cap a smtp.zedis.com (extern)',
+        '07/03/2013: Sudant de Plesk. Copiats a ma els documentroots a /etc/httpd/conf.d',
+
       ]
     }
 
 
     cron {
-
         # Si algun domini caduca en 30 dies o menys, ens avisa. Ojo, els .es no els mira
         "whois":
-          environment => "MAILTO=di4blo@gmail.com",
+          environment => "MAILTO=/dev/null",
           command     => "/opt/scripts/whois.sh",
           user        => root,
           hour        => 3,
@@ -152,7 +152,7 @@ node 'falcon.jcbconsulting.biz' inherits base {
 
         # Backup servidor namesti
         "rdiff-backup namesti":
-          command => "rdiff-backup --print-statistics --exclude=/lost+found --exclude=/var/log --exclude=/proc --exclude=/sys --exclude=/var/backup/rdiff  --exclude=/var/named/run-root/proc  --exclude-special-files --force ks391417.kimsufi.com::/  /var/backup/rdiff/remot/ks391417.kimsufi.com",
+          command => "rdiff-backup --print-statistics --exclude=/lost+found --exclude=/var/log --exclude=/proc --exclude=/sys --exclude=/usr/lib  --exclude=/usr/lib64 --exclude=/var/backup/rdiff  --exclude=/var/named/run-root/proc  --exclude-special-files --force ks391417.kimsufi.com::/  /var/backup/rdiff/remot/ks391417.kimsufi.com",
           user    => root,
           hour    => 5,
           minute  => 30,
