@@ -83,5 +83,5 @@ node 'vps38933.ovh.net' inherits default {
     #  user    => root,
     #  hour    => 5,
     #  minute  => 30;
- # }
+  }
 }
