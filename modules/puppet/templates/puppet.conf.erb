@@ -3,13 +3,13 @@
     server=<%= puppetserver %>
 
     vardir = /var/lib/puppet
+    ssldir = $vardir/ssl
+    libdir = $vardir/lib
     logdir = /var/log/puppet
     rundir = /var/run/puppet
-    ssldir = $vardir/ssl
     pluginsync = true
     report = true
     factpath   = $vardir/lib/facter
-    modulepath = /etc/puppet/modules
 
 
 [master]
@@ -27,9 +27,9 @@
     #rrdinterval=$runinterval
     #rrdgraph=true 
 
-    #modulepath=/etc/puppet/modules
-    #manifestdir=/etc/puppet/manifests/
-    #manifest=/etc/puppet/manifests/site.pp
+    modulepath=/etc/puppet/modules
+    manifestdir=/etc/puppet/manifests/
+    manifest=/etc/puppet/site.pp
 
 
 
