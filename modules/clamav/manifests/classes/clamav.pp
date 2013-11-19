@@ -1,15 +1,15 @@
 class clamav {
 
+  include yum::thirdparty::epel
+
   package { ['clamav','clamd','clamav-db']:
-    ensure    => installed,
-    provider  => 'yum',
-    before    => Service['clamd'],
+    ensure  => latest,
+    before  => Service['clamd'],
   }
 
   service { 'clamd':
     ensure    => running,
     enable    => true,
-    hasstatus => true,
     require   => Package['clamd'],
   }
 
@@ -28,23 +28,29 @@ class clamav {
   }
 
   group { 'clam':
-    require   => user['clam'],
+    ensure => present,
+  }
+
+  group { 'clamav':
+    ensure => present,
   }
 
   file { '/var/log/clamav/':
     ensure    => directory,
     owner     => 'clam',
     group     => 'clamav',
-    mode      => 775,
+    mode      => '0775',
     recurse   => true,
+    require   => [ User['clam'], Group['clamav'] ],
   }
 
   file { '/var/lib/clamav/':
     ensure    => directory,
     owner     => 'clam',
     group     => 'clamav',
-    mode      => 775,
+    mode      => '0775',
     recurse   => false,
+    require   => [ User['clam'], Group['clamav'] ],
   }
 
 }
