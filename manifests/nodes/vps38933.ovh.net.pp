@@ -50,22 +50,6 @@ node 'vps38933.ovh.net' inherits default {
     content => file("/etc/puppet/files/etc/logrotate.d/named"),
   }
 
-  file { "/etc/logrotate.d/psa-ftp":
-    ensure  => file,
-    owner   => "root",
-    group   => "root",
-    mode    => 644,
-    content => file("/etc/puppet/files/etc/logrotate.d/psa-ftp"),
-  }
-
-  file { "/etc/logrotate.d/psa-maillog":
-    ensure  => file,
-    owner   => "root",
-    group   => "root",
-    mode    => 644,
-    content => file("/etc/puppet/files/etc/logrotate.d/psa-maillog"),
-  }
-
   cron {
     # Si algun domini caduca en 30 dies o menys, ens avisa. Ojo, els .es no els mira
     "whois":
@@ -77,35 +61,27 @@ node 'vps38933.ovh.net' inherits default {
       minute      => 10;
 
     # cada dia fem un backup de la bbdd 
-    "backup sql":
-      ensure      => present,
-      command     => "/opt/scripts/backup_sql.sh",
-      user        => root,
-      hour        => 2,
-      minute      => 20;
-
-    # esborrem els mails d'spam que estan bouncejan ###
-    "qmailclean":
-      ensure  => present,
-      command => "/opt/scripts/qmail/qmailclean.sh",
-      user    => root,
-      hour    => 2,
-      minute  => 50;
+    #"backup sql":
+    #  ensure      => present,
+    #  command     => "/opt/scripts/backup_sql.sh",
+    #  user        => root,
+    #  hour        => 2,
+    #  minute      => 20;
 
     # esborrem els backups mes antics de 2 setmanes
-    "esborra-rdiff":
-      ensure  => present,
-      command => "rdiff-backup --force --remove-older-than 2W /var/backup/rdiff/remot/ks391417.kimsufi.com/",
-      user    => root,
-      hour    => 5,
-      minute  => 20;
+    #"esborra-rdiff":
+    #  ensure  => present,
+    #  command => "rdiff-backup --force --remove-older-than 2W /var/backup/rdiff/remot/ks391417.kimsufi.com/",
+    #  user    => root,
+    #  hour    => 5,
+    #  minute  => 20;
 
     # Backup servidor namesti
-    "rdiff-backup namesti":
-      ensure  => present,
-      command => "rdiff-backup --print-statistics --exclude=/lost+found --exclude=/var/log --exclude=/proc --exclude=/sys --exclude=/usr/lib  --exclude=/usr/lib64 --exclude=/var/backup/rdiff  --exclude=/var/named/run-root/proc  --exclude-special-files --force ks391417.kimsufi.com::/  /var/backup/rdiff/remot/ks391417.kimsufi.com",
-      user    => root,
-      hour    => 5,
-      minute  => 30;
-  }
+    #"rdiff-backup namesti":
+    # ensure  => present,
+    #  command => "rdiff-backup --print-statistics --exclude=/lost+found --exclude=/var/log --exclude=/proc --exclude=/sys --exclude=/usr/lib  --exclude=/usr/lib64 --exclude=/var/backup/rdiff  --exclude=/var/named/run-root/proc  --exclude-special-files --force ks391417.kimsufi.com::/  /var/backup/rdiff/remot/ks391417.kimsufi.com",
+    #  user    => root,
+    #  hour    => 5,
+    #  minute  => 30;
+ # }
 }
