@@ -12,14 +12,13 @@ node default {
     options     => $resolv_options,
   }
 
-  #import 'profile'
+  include yum
   include profile
-  #import 'ntp'
-  include ntp-client
+  include ntp
   include puppet
 
   file { '/tmp':
-      ensure => directory,
-      mode   => 1777,
+    ensure => directory,
+    mode   => 1777,
   }
 }
