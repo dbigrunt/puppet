@@ -9,6 +9,7 @@
     pluginsync = true
     report = true
     factpath   = $vardir/lib/facter
+    modulepath = /etc/puppet/modules
 
 
 [master]
@@ -45,7 +46,3 @@
     # The default value is '$confdir/localconfig'.
     localconfig = $vardir/localconfig
 
-    modulepath = /etc/puppet/modules
-
-    # The Foreman
-    report = true
