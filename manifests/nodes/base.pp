@@ -1,6 +1,6 @@
 node default {
 
-  $puppetserver       = 'vps.jcbconsulting.biz'
+  $puppetserver       = 'vps38933.ovh.net'
   $resolv_searchpaths = ['jcbconsulting.biz']
   $resolv_nameservers = ['127.0.0.1','8.8.8.8','8.8.4.4']
   $resolv_options     = ['rotate','timeout:1','attempts:5']
