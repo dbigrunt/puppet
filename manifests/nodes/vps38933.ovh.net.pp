@@ -1,4 +1,4 @@
-node 'vps.jcbconsulting.biz' inherits default {
+node 'vps38933.ovh.net' inherits default {
 
   $administrator_email       = 'xavi.carrillo@gmail.com'
   $puppet_fileserver_allowed = [ '*.jcbconsulting.biz', 'vps38933.ovh.com' ] 
