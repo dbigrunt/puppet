@@ -1,7 +1,7 @@
 class puppet::master {
 
     include puppet
-    include puppet::fileserver
+    #include puppet::fileserver
 
     package { "puppet-server":
         ensure => installed,
