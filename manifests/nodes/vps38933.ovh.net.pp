@@ -7,55 +7,34 @@ node 'vps38933.ovh.net' inherits default {
   # os_specific: related to kernel modules, which we don't use
 
   include puppet::master
-  #import 'clamav'
   include clamav
-  clamav::scan { "$name":
-    directory => "/var/www/vhosts",
+  clamav::scan { "${name}":
+    directory => '/var/www/vhosts',
   }
   include rkhunter
-  import "/etc/puppet/manifests/tga.es.pp"
 
-#En un futur fer classe named, o inclus considerar powerdns
-#Recordar que aquest logrotate s'ha fet perque hem afegit estadistiques a /etc/named.conf:
-#logging {
-#
-#    channel debug_log {
-#        file "/var/log/debug.log";
-#        severity debug 3;
-#        print-category yes;
-#        print-severity yes;
-#        print-time yes;
-#    };
-#
-#    channel query_log {
-#        file "/var/log/query.log";
-#        severity dynamic;
-#        print-category yes;
-#        print-severity yes;
-#        print-time yes;
-#    };
-#
-#    category resolver { debug_log; };
-#    category security { debug_log; };
-#    category queries { query_log; };
-#
-#};
+  #file { '/var/www/tga.es/httpdocs/.htaccess':
+    #ensure  => present,
+    #owner   => 'root',
+    #group   => 'root',
+    #mode    => '0644',
+    #content => file('/etc/puppet/files/var/www/vhosts/tga.es/httpdocs/.htaccess'),
+  #}
 
-
-  file { "/etc/logrotate.d/named":
+  file { '/etc/logrotate.d/named':
     ensure  => file,
-    owner   => "root",
-    group   => "named",
-    mode    => 644,
-    content => file("/etc/puppet/files/etc/logrotate.d/named"),
+    owner   => 'root',
+    group   => 'named',
+    mode    => '0644',
+    content => file('/etc/puppet/files/etc/logrotate.d/named'),
   }
 
   cron {
     # Si algun domini caduca en 30 dies o menys, ens avisa. Ojo, els .es no els mira
-    "whois":
+    'whois':
       ensure      => present,
-      environment => "MAILTO=/dev/null",
-      command     => "/opt/scripts/whois.sh",
+      environment => 'MAILTO=/dev/null',
+      command     => '/opt/scripts/whois.sh',
       user        => root,
       hour        => 3,
       minute      => 10;
