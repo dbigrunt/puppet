@@ -28,5 +28,13 @@ class ntp ($servers = [ '0.centos.pool.ntp.org','1.centos.pool.ntp.org','2.cento
     content => template('ntp/ntp.conf.erb'),
   }
 
+
+  file { '/etc/sysconfig/ntpd':
+    require => Package['ntp'],
+    notify  => Service[$service_name],
+    content => template('ntp/sysconfig_ntp.erb'),
+  }
+
+
 }
 
