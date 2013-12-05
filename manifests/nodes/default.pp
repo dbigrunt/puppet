@@ -13,7 +13,6 @@ node default {
   }
 
   include yum
-  include profile
   include ntp
   include puppet
 
