@@ -1,5 +1,5 @@
 
-class ntp ($servers = [ '0.centos.pool.ntp.org' ],) {
+class ntp ($servers = [ '0.centos.pool.ntp.org','1.centos.pool.ntp.org','2.centos.pool.ntp.org' ],) {
 
   case $::osfamily{
     'Debian':  {
