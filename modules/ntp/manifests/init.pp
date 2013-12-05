@@ -28,9 +28,5 @@ class ntp ($servers = [ '0.centos.pool.ntp.org' ],) {
     content => template('ntp/ntp.conf.erb'),
   }
 
-  file { '/etc/logrotate.d/ntpd':
-    source => 'puppet:///ntp/logrotate.d/ntpd',
-  }
-
 }
 
