@@ -8,9 +8,9 @@ node default {
 
   import 'resolv'
   resolv_conf { 'basenode_resolv':
-    searchpath  => 'jcbconsulting.biz',
-    nameservers => ['127.0.0.1','8.8.8.8','8.8.4.4'],
-    options     => ['rotate','timeout:1','attempts:5'],
+    searchpath  => [ 'jcbconsulting.biz' ],
+    nameservers => [ '127.0.0.1','8.8.8.8','8.8.4.4' ],
+    options     => [ 'rotate','timeout:1','attempts:5' ],
   }
 
   file { '/tmp':

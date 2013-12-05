@@ -1,4 +1,4 @@
-class vim ($colorscheme = 'koehler') {
+class cosmetic::vim ($colorscheme = 'koehler') {
 
   package { [
     'vim-minimal',
@@ -8,7 +8,7 @@ class vim ($colorscheme = 'koehler') {
   }
 
   file {'/etc/vimrc':
-    content => template('common/vimrc.erb'),
+    content => template('cosmetic/vimrc.erb'),
   }
 
 }
