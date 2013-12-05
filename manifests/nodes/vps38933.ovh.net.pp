@@ -9,6 +9,7 @@ node 'vps38933.ovh.net' inherits default {
   include puppet::master
   include rkhunter
   include cosmetic
+  include cosmetic::vim
   include clamav
 
   clamav::scan { "${name}":
