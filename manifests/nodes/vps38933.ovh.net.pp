@@ -7,11 +7,13 @@ node 'vps38933.ovh.net' inherits default {
   # os_specific: related to kernel modules, which we don't use
 
   include puppet::master
+  include rkhunter
+  include cosmetic
   include clamav
+
   clamav::scan { "${name}":
     directory => '/var/www/vhosts',
   }
-  include rkhunter
 
   #file { '/var/www/tga.es/httpdocs/.htaccess':
     #ensure  => present,
