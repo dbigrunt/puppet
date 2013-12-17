@@ -12,6 +12,44 @@ node 'vps38933.ovh.net' inherits default {
   include cosmetic::vim
   include clamav
 
+
+  class { 'apache':  
+    servername        => 'vps.jcbconsulting.biz',
+    serveradmin       => 'xavi.carrillo@gmail.com',
+    log_level         => 'warn',
+    keepalive         => 'On',
+    keepalive_timeout => '15',
+    server_signature  => 'Off',
+    server_tokens     => 'None',
+  }
+
+  include apache::mod::php
+  include apache::mod::ssl
+
+  file { '/var/www/vhosts':
+    ensure => directory,
+    owner  => 'apache',
+    group  => 'apache',
+  }
+
+  apache::vhost { 'mundodisea.com':
+    serveraliases   => 'www.mundodisea.com',
+    docroot         => '/var/www/vhosts/mundodisea.com',
+    docroot_owner   => 'apache',
+    docroot_group   => 'apache',
+    redirect_source => ['/dokuwiki'],
+    redirect_dest   => ['https://mundodisea.com/dokuwiki',],
+
+    #directories => [
+    #  { path => '/path/to/directory', ssl_options => '+ExportCertData' }
+    #  { path => '/path/to/different/dir', ssl_options => [ '-StdEnvVars', '+ExportCertData'] },
+    #],
+	  #error_documents => [
+    #  { 'error_code' => '503', 'document' => '/service-unavail' },
+    #  { 'error_code' => '407', 'document' => 'https://example.com/proxy/login' },
+    #],
+  } 
+
   clamav::scan { "${name}":
     directory => '/var/www/vhosts',
   }
