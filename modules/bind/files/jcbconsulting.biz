@@ -1,0 +1,23 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; This file is centrally managed, any manual changes will be OVERWRITTEN ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+$TTL    3H
+@       IN      SOA  @   vps38933.ovh.net. (
+                                              2014040101  ; Serial
+                                              1D          ; Refresh
+                                              1H          ; Retry
+                                              1W          ; Expire
+                                              3H )        ; Minimum
+
+jcbconsulting.biz.          IN NS      ns1.jcbdns.com.
+jcbconsulting.biz.          IN NS      ns2.jcbdns.com.
+ns1.jcbconsulting.biz.      IN A       176.31.188.94
+ns2.jcbconsulting.biz.      IN A       176.31.188.94
+jcbconsulting.biz.          IN A       176.31.188.94
+webmail.jcbconsulting.biz.  IN A       176.31.188.94
+mail.jcbconsulting.biz.     IN A       176.31.188.94
+www.jcbconsulting.biz.      IN CNAME   jcbconsulting.biz.
+jcbconsulting.biz.          IN MX      10 mail.jcbconsulting.biz.
+
+

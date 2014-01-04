@@ -1,56 +1,16 @@
+# Class: clamav
+#
+# Since the Fedora/RHEL packages have changed a lot over time, but that only
+# the latest version(s) of ClamAV are actually supported, no efforts are made
+# to be compatible with older versions of the clamav-* packages.
+#
+# The current class and related definitions are meant for ClamAV 0.97.
+#
 class clamav {
 
-  include yum::thirdparty::epel
+    package { 'clamd': ensure => installed }
 
-  package { ['clamav','clamd','clamav-db']:
-    ensure  => latest,
-    before  => Service['clamd'],
-  }
-
-  service { 'clamd':
-    ensure    => running,
-    enable    => true,
-    require   => Package['clamd'],
-  }
-
-  user { 'clam':
-    comment   => 'Clam Anti Virus Checker',
-    home      => '/var/clamav',
-    shell     => '/sbin/nologin',
-    groups    => 'clam',
-  }
-
-  user { 'clamav':
-    comment   => 'Clam Anti Virus Checker',
-    home      => '/var/clamav',
-    shell     => '/sbin/nologin',
-    groups    => 'clam',
-  }
-
-  group { 'clam':
-    ensure => present,
-  }
-
-  group { 'clamav':
-    ensure => present,
-  }
-
-  file { '/var/log/clamav/':
-    ensure    => directory,
-    owner     => 'clam',
-    group     => 'clamav',
-    mode      => '0775',
-    recurse   => true,
-    require   => [ User['clam'], Group['clamav'] ],
-  }
-
-  file { '/var/lib/clamav/':
-    ensure    => directory,
-    owner     => 'clam',
-    group     => 'clamav',
-    mode      => '0775',
-    recurse   => false,
-    require   => [ User['clam'], Group['clamav'] ],
-  }
+    # TODO: Include freshclam related stuff here?
 
 }
+
