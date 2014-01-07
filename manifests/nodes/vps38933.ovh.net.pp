@@ -10,23 +10,16 @@ node 'vps38933.ovh.net' inherits default {
   include rkhunter
   include cosmetic
   include cosmetic::vim
-  #include clamav
-
   include dns
   include web
   include db
   include mail
 
-  # Scan for viruses
-#  clamav::scan { "${name}":
-#    directory => '/var/www/vhosts',
-#  }
-
   cron {
     # Si algun domini caduca en 30 dies o menys, ens avisa. Ojo, els .es no els mira
     'whois':
       ensure      => present,
-      environment => 'MAILTO=/dev/null',
+      environment => 'MAILTO=xavi.carrillo@gmail.com',
       command     => '/opt/scripts/whois.sh',
       user        => root,
       hour        => 3,
