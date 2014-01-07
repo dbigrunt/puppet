@@ -195,7 +195,7 @@ node 'vps38933.ovh.net' inherits default {
     protocols                  => 'imap pop3',
     verbose_proctitle          => 'yes',
     auth_include               => 'sql',
-    disable_plaintext_auth     => 'yes',
+    disable_plaintext_auth     => 'no',
     mail_location              => 'maildir:/var/mail/vhosts/%d/%n',
     #mail_location              => 'maildir:~/Maildir',
     auth_listener_userdb_mode  => '0660',
