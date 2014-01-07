@@ -38,16 +38,25 @@ class web {
     ip            => "$::ipaddress",
     serveraliases => 'www.mundodisea.com',
     docroot       => '/var/www/vhosts/mundodisea.com',
+    aliases => [
+      { alias     => '/webmail', path => '/var/www/html/webmail' },
+    ],
   }
   apache::vhost { 'tga.es':
     ip            => "$::ipaddress",
     serveraliases => 'www.tga.es',
     docroot       => '/var/www/vhosts/tga.es',
+    aliases => [
+      { alias     => '/webmail', path => '/var/www/html/webmail' },
+    ],
   }
   apache::vhost { 'maricel.es':
     ip            => "$::ipaddress",
     serveraliases => 'www.maricel.es',
     docroot       => '/var/www/vhosts/maricel.es',
+    aliases => [
+      { alias     => '/webmail', path => '/var/www/html/webmail' },
+    ],
   }
   apache::vhost { 'jcbconsulting.biz':
     ip            => "$::ipaddress",
