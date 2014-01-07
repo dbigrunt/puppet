@@ -12,6 +12,23 @@ node 'vps38933.ovh.net' inherits default {
   include cosmetic::vim
   #include clamav
 
+  augeas { "php.ini":
+    notify  => Service[httpd],
+    require => Package[php],
+    context => "/files/etc/php.ini/PHP",
+    changes => [
+      "set engine = On",
+      "set file_uploads = On",
+      "set post_max_size 10M",
+      "set upload_max_filesize 10M",
+      "set register_globals = Off",
+      "set safe_mode = Off",
+      "set max_execution_time = 30",
+      "set max_input_time = 60",
+      "set mysql.allow_persistent = On",
+      "set mysql.connect_timeout = 60",
+    ];
+  }
   include bind
   bind::server::conf { '/etc/named.conf':
     listen_on_addr    => [ 'any' ],
