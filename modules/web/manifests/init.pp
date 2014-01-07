@@ -8,6 +8,25 @@ class web {
     server_signature  => 'Off',
     server_tokens     => 'None',
   }
+  augeas { "php.ini":
+    notify  => Service[httpd],
+    require => Package[php],
+    context => "/files/etc/php.ini/PHP",
+    changes => [
+      "set engine On",
+      "set file_uploads On",
+      "set post_max_size 10M",
+      "set upload_max_filesize 10M",
+      "set register_globals Off",
+      "set safe_mode Off",
+      "set max_execution_time 30",
+      "set max_input_time 60",
+      "set mysql.allow_persistent On",
+      "set mysql.connect_timeout 60",
+      "set date.timezone Europe/Madrid",
+      "set memory_limit 128M",
+    ];
+  }
   file { '/var/www/vhosts':
     ensure  => directory,
     owner   => 'apache',
@@ -49,21 +68,4 @@ class web {
   include apache::mod::ssl
   include apache::mod::php
   include mysql::bindings::php
-  augeas { "php.ini":
-    notify  => Service[httpd],
-    require => Package[php],
-    context => "/files/etc/php.ini/PHP",
-    changes => [
-      "set engine On",
-      "set file_uploads On",
-      "set post_max_size 10M",
-      "set upload_max_filesize 10M",
-      "set register_globals Off",
-      "set safe_mode Off",
-      "set max_execution_time 30",
-      "set max_input_time 60",
-      "set mysql.allow_persistent On",
-      "set mysql.connect_timeout 60",
-    ];
-  }
 }
