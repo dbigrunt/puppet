@@ -15,6 +15,10 @@ node 'vps38933.ovh.net' inherits default {
   include db
   include mail
 
+  class { 'yum-cron':
+    mailto => 'xavi.carrillo@gmail.com',
+  }
+
   cron {
     # Si algun domini caduca en 30 dies o menys, ens avisa. Ojo, els .es no els mira
     'whois':
