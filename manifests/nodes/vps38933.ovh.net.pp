@@ -54,12 +54,9 @@ node 'vps38933.ovh.net' inherits default {
     #  minute  => 30;
   }
 
-  file {'/home/xcarrillo/.gitconfig':
+  file { '/root/.gitconfig':
     ensure  => present,
     content => "[user] \n  name = Xavi Carrillo\n  email = xavi.carrillo@gmail.com\n",
-    owner   => 'xcarrillo',
-    group   => 'xcarrillo',
-    mode    => '0664',
   }
 
 }
