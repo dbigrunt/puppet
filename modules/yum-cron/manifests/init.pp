@@ -12,4 +12,9 @@ class yum-cron (
     content => template('yum-cron/yum-cron.erb'),
   }
 
+  service { 'yum-cron':
+    enable => true,
+    ensure => running,
+  }
+
 }

@@ -5,6 +5,7 @@ node default {
   include yum
   include ntp
   include puppet
+  include ssh
 
   import 'resolv'
   resolv_conf { 'basenode_resolv':
