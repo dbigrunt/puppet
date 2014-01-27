@@ -7,11 +7,9 @@ node 'vps38933.ovh.net' inherits default {
   include web
   include db
   include mail
-
   class { 'yum-cron':
     mailto => 'xavi.carrillo@gmail.com',
   }
-
   class { 'rkhunter':
     administrator_email    => 'xavi.carrillo@gmail.com',
     allow_ssh_root_user    => 'no',
@@ -19,7 +17,9 @@ node 'vps38933.ovh.net' inherits default {
     rkhunter_disable_tests => [ 'suspscan hidden_procs deleted_files packet_cap_apps apps os_specific' ],
       # os_specific: related to kernel modules, which we don't use
   }
-
+  class { 'dropbox':
+    users => 'root',
+  }
   cron {
     # Si algun domini caduca en 30 dies o menys, ens avisa. Ojo, els .es no els mira
     'whois':
