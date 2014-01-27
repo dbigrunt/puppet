@@ -82,8 +82,7 @@ MIRRORS_MODE=0
 # NOTE: This option should be present in the configuration file.
 #
 #MAIL-ON-WARNING=me@mydomain   root@mydomain
-MAIL-ON-WARNING=<%= administrator_email %>
-#MAIL-ON-WARNING=""
+MAIL-ON-WARNING=<%= @administrator_email %>
 
 #
 # Specify the mail command to use if MAIL-ON-WARNING is set.
@@ -218,7 +217,7 @@ WHITELISTED_IS_WHITE=0
 # file, then a value here of 'unset' can be used to avoid warning messages.
 # This option has a default value of 'no'.
 #
-ALLOW_SSH_ROOT_USER=yes
+ALLOW_SSH_ROOT_USER=<%= @allow_ssh_root_user -%>
 
 #
 # Set this option to '1' to allow the use of the SSH-1 protocol, but note
@@ -263,7 +262,7 @@ ALLOW_SSH_PROT_V1=0
 #DISABLE_TESTS="suspscan hidden_procs deleted_files packet_cap_apps apps"
 
 ENABLE_TESTS="all"
-DISABLE_TESTS="<%= rkhunter_disable_tests %>"
+DISABLE_TESTS="<%= @rkhunter_disable_tests %>"
 
 
 #
@@ -652,6 +651,12 @@ ALLOWDEVFILE=/dev/.udev/queue.bin
 ALLOWDEVFILE=/dev/.udev/db/*
 ALLOWDEVFILE=/dev/.udev/rules.d/99-root.rules
 ALLOWDEVFILE=/dev/.udev/uevent_seqnum
+<% if @allowdevfiles -%>
+<% allowdevfiles.each do |allowdevfile| -%>
+ALLOWDEVFILE=<%= allowdevfile %>
+<% end -%>
+<% end -%>
+
 
 #
 # This setting tells rkhunter where the inetd configuration
@@ -686,8 +691,10 @@ ALLOWDEVFILE=/dev/.udev/uevent_seqnum
 #
 #INETD_ALLOWED_SVC=echo
 
+<% if @rkhunter_xinetd_allowed -%>
 <% rkhunter_xinetd_allowed.each do |allowed| -%>
 XINETD_ALLOWED_SVC=/etc/xinetd.d/<%= allowed %>
+<% end -%>
 <% end -%>
 
 

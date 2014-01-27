@@ -1,13 +1,6 @@
 node 'vps38933.ovh.net' inherits default {
 
-  $administrator_email       = 'xavi.carrillo@gmail.com'
-  $puppet_fileserver_allowed = [ '*.jcbconsulting.biz', 'vps38933.ovh.net' ] 
-  $rkhunter_xinetd_allowed   = [ 'echo','ftp_psa','poppassd_psa','smtp_psa','smtps_psa', 'submission_psa' ]
-  $rkhunter_disable_tests    = [ 'suspscan hidden_procs deleted_files packet_cap_apps apps os_specific' ]
-  # os_specific: related to kernel modules, which we don't use
-
   include puppet::master
-  include rkhunter
   include cosmetic
   include cosmetic::vim
   include dns
@@ -19,10 +12,18 @@ node 'vps38933.ovh.net' inherits default {
     mailto => 'xavi.carrillo@gmail.com',
   }
 
+  class { 'rkhunter':
+    administrator_email    => 'xavi.carrillo@gmail.com',
+    allow_ssh_root_user    => 'no',
+    allowdevfiles          => [ '/dev/md/autorebuild.pid','/dev/kmsg', ],
+    rkhunter_disable_tests => [ 'suspscan hidden_procs deleted_files packet_cap_apps apps os_specific' ],
+      # os_specific: related to kernel modules, which we don't use
+  }
+
   cron {
     # Si algun domini caduca en 30 dies o menys, ens avisa. Ojo, els .es no els mira
     'whois':
-      ensure      => present,
+      ensure      => absent,
       environment => 'MAILTO=xavi.carrillo@gmail.com',
       command     => '/opt/scripts/whois.sh',
       user        => root,
