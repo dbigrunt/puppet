@@ -20,16 +20,21 @@ node 'vps38933.ovh.net' inherits default {
   class { 'dropbox':
     users => 'root',
   }
-  cron {
-    # Si algun domini caduca en 30 dies o menys, ens avisa. Ojo, els .es no els mira
-    'whois':
-      ensure      => absent,
-      environment => 'MAILTO=xavi.carrillo@gmail.com',
-      command     => '/opt/scripts/whois.sh',
-      user        => root,
-      hour        => 3,
-      minute      => 10;
 
+  package { 'rdiff-backup':
+    ensure => latest,
+  }
+
+  file { '/root/Dropbox/backups/vps38933/sql':
+    ensure => directory,
+  }
+
+  file { '/root/Dropbox/backups/vps38933/rdiff':
+    ensure => directory,
+  }
+
+
+  cron {
     # cada dia fem un backup de la bbdd 
     #"backup sql":
     #  ensure      => present,
@@ -39,20 +44,34 @@ node 'vps38933.ovh.net' inherits default {
     #  minute      => 20;
 
     # esborrem els backups mes antics de 2 setmanes
-    #"esborra-rdiff":
-    #  ensure  => present,
-    #  command => "rdiff-backup --force --remove-older-than 2W /var/backup/rdiff/remot/ks391417.kimsufi.com/",
-    #  user    => root,
-    #  hour    => 5,
-    #  minute  => 20;
-
-    # Backup servidor namesti
-    #"rdiff-backup namesti":
-    # ensure  => present,
-    #  command => "rdiff-backup --print-statistics --exclude=/lost+found --exclude=/var/log --exclude=/proc --exclude=/sys --exclude=/usr/lib  --exclude=/usr/lib64 --exclude=/var/backup/rdiff  --exclude=/var/named/run-root/proc  --exclude-special-files --force ks391417.kimsufi.com::/  /var/backup/rdiff/remot/ks391417.kimsufi.com",
-    #  user    => root,
-    #  hour    => 5,
-    #  minute  => 30;
+    'esborra-rdiff':
+     ensure      => present,
+     environment => 'MAILTO=xavi.carrillo@gmail.com',
+     command     => 'rdiff-backup --force --remove-older-than 2W /root/Dropbox/backups/vps38933',
+     user        => root,
+     hour        => 5,
+     minute      => 20;
+    # Backup /etc into Dropbox
+    'rdiff-backup /etc':
+      ensure  => present,
+      command => 'rdiff-backup --print-statistics --force /etc /root/Dropbox/backups/vps38933/rdiff/etc',
+      user    => 'root',
+      hour    => 4,
+      minute  => 10;
+    # Backup /var/www into Dropbox
+    'rdiff-backup /var/www':
+      ensure  => present,
+      command => 'rdiff-backup --print-statistics --force /var/www /root/Dropbox/backups/vps38933/rdiff/www',
+      user    => 'root',
+      hour    => 4,
+      minute  => 30;
+     # Backup /var/mail/vhosts into Dropbox
+    'rdiff-backup /var/mail/vhosts':
+      ensure  => present,
+      command => 'rdiff-backup --print-statistics --force /var/mail/vhosts /root/Dropbox/backups/vps38933/rdiff/mail',
+      user    => 'root',
+      hour    => 4,
+      minute  => 50;
   }
 
   file { '/root/.gitconfig':
