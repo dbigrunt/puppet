@@ -7,8 +7,7 @@ node default {
   include puppet
   include ssh
 
-  import 'resolv'
-  resolv_conf { 'basenode_resolv':
+  class { 'resolv':
     searchpath  => [ 'jcbconsulting.biz' ],
     nameservers => [ '127.0.0.1','8.8.8.8','8.8.4.4' ],
     options     => [ 'rotate','timeout:1','attempts:5' ],
