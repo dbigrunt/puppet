@@ -33,24 +33,34 @@ node 'vps38933.ovh.net' inherits default {
     ensure => directory,
   }
 
-
   cron {
     # cada dia fem un backup de la bbdd 
-    #"backup sql":
-    #  ensure      => present,
-    #  command     => "/opt/scripts/backup_sql.sh",
-    #  user        => root,
-    #  hour        => 2,
-    #  minute      => 20;
-
+    "backup sql":
+      ensure      => present,
+      environment => 'MAILTO=xavi.carrillo@gmail.com',
+      command     => '/opt/scripts/backups/backup_sql.sh /root/Dropbox/backups/vps38933/sql/',
+      user        => root,
+      hour        => 2,
+      minute      => 20;
     # esborrem els backups mes antics de 2 setmanes
-    'esborra-rdiff':
-     ensure      => present,
-     environment => 'MAILTO=xavi.carrillo@gmail.com',
-     command     => 'rdiff-backup --force --remove-older-than 2W /root/Dropbox/backups/vps38933',
-     user        => root,
-     hour        => 5,
-     minute      => 20;
+    'rdiff-backup: clean /etc':
+       ensure  => present,
+       command => 'rdiff-backup --force --remove-older-than 1W /root/Dropbox/backups/vps38933/rdiff/etc',
+       user    => root,
+       hour    => 5,
+       minute  => 20;
+    'rdiff-backup: clean mail':
+       ensure  => present,
+       command => 'rdiff-backup --force --remove-older-than 1W /root/Dropbox/backups/vps38933/rdiff/mail',
+       user    => root,
+       hour    => 5,
+       minute  => 20;
+     'rdiff-backup: clean www':
+       ensure  => present,
+       command => 'rdiff-backup --force --remove-older-than 1W /root/Dropbox/backups/vps38933/rdiff/www',
+       user    => root,
+       hour    => 5,
+       minute  => 20;
     # Backup /etc into Dropbox
     'rdiff-backup /etc':
       ensure  => present,
