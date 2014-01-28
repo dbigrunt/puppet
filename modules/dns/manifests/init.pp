@@ -50,4 +50,11 @@ class dns {
   bind::server::file { '188.31.176.in-addr.arpa':
     source => 'puppet:///modules/dns/188.31.176.in-addr.arpa',
   }
+  file { '/etc/logrotate.d/named':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'named',
+    mode    => '0644',
+    source => 'puppet:///modules/dns/logrotate-named',
+  }
 }

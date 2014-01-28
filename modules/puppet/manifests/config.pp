@@ -13,7 +13,7 @@ class puppet::config {
         ensure  => present,
         owner   => "root",
         group   => "root",
-        content => template("/etc/puppet/files/etc/sysconfig/puppet"),
+        content => template("puppet/sysconfig-puppet.erb"),
         require => Class["puppet::install"],
         notify  => Class["puppet::service"],
     }

@@ -11,7 +11,7 @@ define resolv_conf (
         owner   => root,
         group   => root,
         mode    => 644,
-        content => template("/etc/puppet/files/etc/resolv.erb"),
+        content => template('resolv/resolv.erb'),
     }
 
 }

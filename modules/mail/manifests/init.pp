@@ -102,15 +102,6 @@ class mail {
     owner   => 'vmail',
     group   => 'dovecot',
   }
-
-  file { '/etc/logrotate.d/named':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'named',
-    mode    => '0644',
-    content => file('/etc/puppet/files/etc/logrotate.d/named'),
-  }
-
   #Roundcubemail webmail
   package { 'php-xml':
     ensure => installed,
