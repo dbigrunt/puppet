@@ -66,22 +66,22 @@ node 'vps38933.ovh.net' inherits default {
       ensure  => present,
       command => 'rdiff-backup --print-statistics --force /etc /root/Dropbox/backups/vps38933/rdiff/etc',
       user    => 'root',
-      hour    => 4,
+      hour    => 2,
       minute  => 10;
     # Backup /var/www into Dropbox
     'rdiff-backup /var/www':
       ensure  => present,
       command => 'rdiff-backup --print-statistics --force /var/www /root/Dropbox/backups/vps38933/rdiff/www',
       user    => 'root',
-      hour    => 4,
+      hour    => 2,
       minute  => 30;
      # Backup /var/mail/vhosts into Dropbox
     'rdiff-backup /var/mail/vhosts':
       ensure  => present,
       command => 'rdiff-backup --print-statistics --force /var/mail/vhosts /root/Dropbox/backups/vps38933/rdiff/mail',
       user    => 'root',
-      hour    => 4,
-      minute  => 50;
+      hour    => 3,
+      minute  => 10;
   }
 
   file { '/root/.gitconfig':
