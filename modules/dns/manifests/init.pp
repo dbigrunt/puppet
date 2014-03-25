@@ -18,10 +18,6 @@ class dns {
         'type master',
         'file "jcbconsulting.biz"',
       ],
-      'tga.es' => [
-        'type master',
-        'file "tga.es"',
-      ],
       'maricel.es' => [
         'type master',
         'file "maricel.es"',
@@ -40,9 +36,6 @@ class dns {
   }
   bind::server::file { 'jcbconsulting.biz':
     source => 'puppet:///modules/dns/jcbconsulting.biz',
-  }
-  bind::server::file { 'tga.es':
-    source => 'puppet:///modules/dns/tga.es',
   }
   bind::server::file { 'maricel.es':
     source => 'puppet:///modules/dns/maricel.es',

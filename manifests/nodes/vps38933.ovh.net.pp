@@ -34,7 +34,6 @@ node 'vps38933.ovh.net' inherits default {
   }
 
   cron {
-    # cada dia fem un backup de la bbdd 
     "backup sql":
       ensure      => present,
       environment => 'MAILTO=xavi.carrillo@gmail.com',
@@ -42,46 +41,12 @@ node 'vps38933.ovh.net' inherits default {
       user        => root,
       hour        => 2,
       minute      => 20;
-    # esborrem els backups mes antics de 2 setmanes
-    'rdiff-backup: clean /etc':
+    'rdiff-backup':
        ensure  => present,
-       command => 'rdiff-backup --force --remove-older-than 1W /root/Dropbox/backups/vps38933/rdiff/etc',
+       command => '/usr/local/bin/backup',
        user    => root,
-       hour    => 5,
+       hour    => 4,
        minute  => 20;
-    'rdiff-backup: clean mail':
-       ensure  => present,
-       command => 'rdiff-backup --force --remove-older-than 1W /root/Dropbox/backups/vps38933/rdiff/mail',
-       user    => root,
-       hour    => 5,
-       minute  => 20;
-     'rdiff-backup: clean www':
-       ensure  => present,
-       command => 'rdiff-backup --force --remove-older-than 1W /root/Dropbox/backups/vps38933/rdiff/www',
-       user    => root,
-       hour    => 5,
-       minute  => 20;
-    # Backup /etc into Dropbox
-    'rdiff-backup /etc':
-      ensure  => present,
-      command => 'rdiff-backup --print-statistics --force /etc /root/Dropbox/backups/vps38933/rdiff/etc',
-      user    => 'root',
-      hour    => 2,
-      minute  => 10;
-    # Backup /var/www into Dropbox
-    'rdiff-backup /var/www':
-      ensure  => present,
-      command => 'rdiff-backup --print-statistics --force /var/www /root/Dropbox/backups/vps38933/rdiff/www',
-      user    => 'root',
-      hour    => 2,
-      minute  => 30;
-     # Backup /var/mail/vhosts into Dropbox
-    'rdiff-backup /var/mail/vhosts':
-      ensure  => present,
-      command => 'rdiff-backup --print-statistics --force /var/mail/vhosts /root/Dropbox/backups/vps38933/rdiff/mail',
-      user    => 'root',
-      hour    => 3,
-      minute  => 10;
   }
 
   file { '/root/.gitconfig':

@@ -42,14 +42,6 @@ class web {
       { alias     => '/webmail', path => '/var/www/html/webmail' },
     ],
   }
-  apache::vhost { 'tga.es':
-    ip            => "$::ipaddress",
-    serveraliases => 'www.tga.es',
-    docroot       => '/var/www/vhosts/tga.es',
-    aliases => [
-      { alias     => '/webmail', path => '/var/www/html/webmail' },
-    ],
-  }
   apache::vhost { 'maricel.es':
     ip            => "$::ipaddress",
     serveraliases => 'www.maricel.es',
@@ -66,13 +58,6 @@ class web {
   apache::vhost { 'webmail.jcbconsulting.biz':
     ip            => "$::ipaddress",
     docroot       => '/var/www/vhosts/webmail.jcbconsulting.biz',
-  }
-  file {'/var/www/vhosts/tga.es/.htaccess':
-    ensure  => present,
-    content => 'AddDefaultCharset ISO-8859-1',
-    owner   => 'root',
-    group   => 'apache',
-    mode    => '0644',
   }
   include apache::mod::ssl
   include apache::mod::php

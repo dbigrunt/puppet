@@ -4,7 +4,7 @@
 
 $TTL    3H
 @       IN      SOA  @   vps38933.ovh.net. (
-                                              2013251201  ; Serial
+                                              2014250301  ; Serial
                                               1D          ; Refresh
                                               1H          ; Retry
                                               1W          ; Expire
@@ -13,7 +13,6 @@ $TTL    3H
                  IN NS   ns1.jcbdns.com.
 94               IN PTR  mundodisea.com.
 94               IN PTR  maricel.es.
-94               IN PTR  tga.es.
 94               IN PTR  jcbconsulting.biz.
 94               IN PTR  jcbdns.com.
 
