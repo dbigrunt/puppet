@@ -4,15 +4,17 @@ class rkhunter (
   $rkhunter_disable_tests  = undef,
   $allowdevfiles           = undef,
   $allow_ssh_root_user     = 'no',
+  $ensure                  = installed,
+  $cronjob                 = present,
 ) {
   package { 'rkhunter':
-    ensure  => installed,
+    ensure  => $ensure,
   }
   file { '/etc/rkhunter.conf':
     content => template('rkhunter/rkhunter.conf.erb'),
   }
   cron { 'rkhunter scan':
-    ensure  => present,
+    ensure  => $cronjob,
     command => 'rkhunter --cronjob --report-warnings-only',
     user    => 'root',
     hour    => '3',

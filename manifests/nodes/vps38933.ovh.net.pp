@@ -11,6 +11,8 @@ node 'vps38933.ovh.net' inherits default {
     mailto => 'xavi.carrillo@gmail.com',
   }
   class { 'rkhunter':
+    ensure                 => absent,
+    cronjob                => absent,
     administrator_email    => 'xavi.carrillo@gmail.com',
     allow_ssh_root_user    => 'no',
     allowdevfiles          => [ '/dev/md/autorebuild.pid','/dev/kmsg', ],
