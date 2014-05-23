@@ -1,0 +1,15 @@
+example of how to call this module on a node:
+
+    import "/etc/puppet/resources/lsyncd/manifests/lsyncd.pp"
+
+    lsyncd::server { "$name" :
+        nodaemon   => "false",
+        logfile    => "/var/log/lsyncd.log",
+        remoteuser => "repomaster",
+        sourcedir  => "/var/www/rpms",
+        targetdir  => "/var/www/rpms",
+        exclude    => [ ".*", "svn", "rpmbuild" ],
+        slaves     => [ "slave-1.domain.com", "slave-2.domain.com" ],
+        rsyncOps   => [ "--archive", "--recursive", "--verbose", "--delete" ],
+    }
+

@@ -1,0 +1,3 @@
+Just define $install_ocs_agent on the node definition
+
+To be used with custom RPM package 'Ocsinventory-Unix-Agent'. Spec file on github

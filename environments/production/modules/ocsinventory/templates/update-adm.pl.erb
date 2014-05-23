@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+# This script updates the ocsinv.adm with 2 custom fields before it is sent to the ocs server
+# (administrative data fields on the server interface)
+
+use XML::Simple;
+
+$file_url = '/var/lib/ocsinventory-agent/http:__<%= ocs_server %>_ocsinventory/ocsinv.adm';
+$xml = new XML::Simple;
+$data = $xml->XMLin($file_url,forcearray=>1,KeepRoot=>1);
+
+$custom1=`your command`;
+$custom2=`your command`;
+chomp($custom1);
+chomp($custom2);
+
+for (@{$data->{ADM}[0]->{ACCOUNTINFO}}) {
+        if ( $_->{KEYNAME}[0] eq 'fields_3' ) {
+                $_->{KEYVALUE} = [$custom1];
+        }
+        if ($_->{KEYNAME}[0] eq 'fields_4') {
+                $_->{KEYVALUE} = [$custom2];
+        }
+}
+
+$xml->XMLout($data,
+            KeepRoot   => 1,
+            OutputFile => $file_url,
+            XMLDecl    => "<?xml version='1.0'?>",
+        );
+

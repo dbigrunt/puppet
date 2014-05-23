@@ -1,0 +1,65 @@
+{
+  "name": "garethr-graphite",
+  "version": "0.3.0",
+  "source": "UNKNOWN",
+  "author": "garethr",
+  "license": "Apache License, Version 2.0",
+  "summary": "Module to manage the Graphite monitoring tool",
+  "description": "UNKNOWN",
+  "project_page": "https://github.com/garethr/garethr-graphite",
+  "dependencies": [
+    {
+      "name": "puppetlabs/apache",
+      "version_requirement": "0.6.0"
+    },
+    {
+      "name": "footballradar/python",
+      "version_requirement": "0.x"
+    }
+  ],
+  "types": [
+
+  ],
+  "checksums": {
+    "Gemfile": "0fa66cf434702fc7eeb2012011c54d3b",
+    "Gemfile.lock": "7f5c058f9cc8b2f56a40548d39d0c3da",
+    "LICENSE": "47bbee59c4c1cb14cc3667035a227be0",
+    "Modulefile": "43d79e0a97f1fccc2524372a7cc9854b",
+    "README.md": "da804b57104ee558486a9596cbd4f086",
+    "Rakefile": "c6a91ef43608c5d4b22bc7e50a94d6a5",
+    "files/carbon.conf": "257348cdf3dc91244ec71c4a44c7a956",
+    "files/local_settings.py": "ff60bced997dfd0ea3bee084d178675f",
+    "files/storage-schemas.conf": "29d49e9b037f18f81ec04c81a4114918",
+    "manifests/config.pp": "c7614c50592601c963070408e40bfe3e",
+    "manifests/init.pp": "e429c55412ff44ff10d6883555f1f687",
+    "manifests/install.pp": "f514031a1becd4270d2aefb8f0c229d5",
+    "manifests/params.pp": "a649f68f08513b1f055f96f8476dfbe0",
+    "manifests/service.pp": "63f3f7cf9198f5963b18a152ab4f2e98",
+    "spec/classes/graphite/graphite_spec.rb": "f71bb62c5b6819780a600caac75d0c28",
+    "spec/fixtures/modules/concat/CHANGELOG": "89220fae3ab04a350132fe94d7a6ca00",
+    "spec/fixtures/modules/concat/Gemfile": "a913d6f7a0420e07539d8ff1ef047ffb",
+    "spec/fixtures/modules/concat/LICENSE": "f5a76685d453424cd63dde1535811cf0",
+    "spec/fixtures/modules/concat/Modulefile": "0d146adac661219a6236d23a9cf87e8c",
+    "spec/fixtures/modules/concat/README": "d15ec3400f628942dd7b7fa8c1a18da3",
+    "spec/fixtures/modules/concat/README.markdown": "d82e203d729ea4785bdcaca1be166e62",
+    "spec/fixtures/modules/concat/Rakefile": "0428ea3759a4692c91604396c406a9c1",
+    "spec/fixtures/modules/concat/files/concatfragments.sh": "2fbba597a1513eb61229551d35d42b9f",
+    "spec/fixtures/modules/concat/lib/facter/concat_basedir.rb": "e152593fafe27ef305fc473929c62ca6",
+    "spec/fixtures/modules/concat/manifests/fragment.pp": "196ee8e405b3a31b84ae618ed54377ed",
+    "spec/fixtures/modules/concat/manifests/init.pp": "8d0cc8e9cf145ca7a23db05a30252476",
+    "spec/fixtures/modules/concat/manifests/setup.pp": "2246572410d94c68aff310f8132c55b4",
+    "spec/fixtures/modules/concat/spec/defines/init_spec.rb": "35e41d4abceba0dca090d3addd92bb4f",
+    "spec/fixtures/modules/concat/spec/fixtures/manifests/site.pp": "d41d8cd98f00b204e9800998ecf8427e",
+    "spec/fixtures/modules/concat/spec/spec_helper.rb": "0db89c9a486df193c0e40095422e19dc",
+    "spec/fixtures/modules/concat/spec/spec_helper_system.rb": "9c3742bf87d62027f080c6b9fa98b979",
+    "spec/fixtures/modules/concat/spec/system/basic_spec.rb": "9135d9af6a21f16980ab59b58e91ed9a",
+    "spec/fixtures/modules/concat/spec/system/concat_spec.rb": "5fe675ec42ca441d0c7e431c31bbc238",
+    "spec/fixtures/modules/concat/spec/system/empty_spec.rb": "51ab1fc7c86268f1ab1cda72dc5ff583",
+    "spec/fixtures/modules/concat/spec/system/replace_spec.rb": "275295e6b4f04fc840dc3f87faf56249",
+    "spec/fixtures/modules/concat/spec/system/warn_spec.rb": "0ea35b44e8f0ac5352256f95115995ce",
+    "spec/spec_helper.rb": "0db89c9a486df193c0e40095422e19dc",
+    "templates/carbon.conf": "ee1d38544e5bdf4670415205e71a7e0e",
+    "templates/initial_data.json": "d4eea140fe3a6f7609b7b571a401c2f5",
+    "templates/virtualhost.conf": "476d544da342fc6cfa01d6f75f3eb678"
+  }
+}

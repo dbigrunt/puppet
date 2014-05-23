@@ -1,0 +1,3 @@
+root root@jcbconsulting.biz
+# rebuild sender_canonical.db:
+# postmap hash:/etc/postfix/sender_canonical

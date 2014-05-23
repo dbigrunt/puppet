@@ -1,0 +1,43 @@
+{
+  "name": "example42-collectd",
+  "version": "3.0.5",
+  "source": "https://github.com/example42/puppet-collectd",
+  "author": "Alessandro Franceschi",
+  "license": "Apache License, Version 2.0",
+  "summary": "This module installs and manages collectd",
+  "description": "This module installs and manages collectd. Based on stdmod/puppet-skeleton-standard 0.0.2.",
+  "project_page": "http://www.example42.com",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib"
+    },
+    {
+      "name": "example42/stdmod"
+    }
+  ],
+  "types": [
+
+  ],
+  "checksums": {
+    "CHANGELOG": "5e2b2af1701a5ccbd7784e3335834715",
+    "CONTRIBUTORS": "39c722dbf05f5a6d45135449cebb68b3",
+    "Gemfile": "d83f92a5d91df406292be9a4a2434fab",
+    "LICENSE": "47bbee59c4c1cb14cc3667035a227be0",
+    "Modulefile": "2dbc1f1c856909cfe94ead2ba2688404",
+    "README.md": "c7ac4702a2045039f1134ee777ee614c",
+    "Rakefile": "e3b5ba225ce876a187cca861d68044ad",
+    "files/spec.conf": "384a5806f20dd26c67c603598991fe7f",
+    "manifests/conf.pp": "c6314f0bc3dcd6309ba5eac7b49e3be2",
+    "manifests/init.pp": "b011c84c75b361836998e1718c9c24c4",
+    "manifests/params.pp": "8f46c924fa500a6540e4451b8673599a",
+    "manifests/plugin.pp": "550c283bbbb3dd8c46064410b8ef1d31",
+    "spec/classes/init_spec.rb": "79940142ae9c5cadbaaa01940719ce7b",
+    "spec/spec_helper.rb": "0db89c9a486df193c0e40095422e19dc",
+    "spec/spec_helper_system.rb": "ffcf2042f0e17995a636bcc2f33edc10",
+    "spec/system/basic_spec.rb": "a997ed40943b3e91f9a8276d3d4bf0e2",
+    "templates/collectd.conf.erb": "bac6e5674b67e64a0c59669b06afaf29",
+    "templates/plugin.erb": "264f02bd5fd7d75b2b477e647745d0fd",
+    "templates/spec.conf": "cc222fe002365a992c9cd3c536e25611",
+    "tests/init.pp": "b10813ffe61b012e9bd13d7932d16fcf"
+  }
+}
