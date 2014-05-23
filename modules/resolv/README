@@ -1,7 +1,0 @@
-To call the module insert this in the node definition:
-
-class { 'resolv':
-  searchpath  => ['mydomain.com'],
-  nameservers => ['dns1','dns2','dns2'],
-  options     => ['rotate','timeout:1','attempts:5'],
-}
