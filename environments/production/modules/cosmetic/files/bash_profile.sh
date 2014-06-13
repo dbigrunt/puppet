@@ -2,8 +2,19 @@
 # This file is centrally managed, any manual changes will be OVERWRITTEN #
 ##########################################################################
 
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin
+
+export PATH
+
 # Load in the git branch prompt script.
-source /etc/profile.d/git-prompt.sh
+source ~/.git-prompt.sh
 
 Black="\[\033[0;30m\]"        # Black
 Red="\[\033[0;31m\]"          # Red
@@ -16,5 +27,5 @@ White="\[\033[0;37m\]"        # White
 
 Color_Off="\[\033[0m\]"       # Text Reset
 
-PS1="\[$Cyan\]\u@\h\[$Yellow\] \w\[$Purple\]\$(__git_ps1) \n\[$Color_Off\]# "
+PS1="$Cyan\u@\h$Color_Off:$Yellow\w$Purple\$(__git_ps1) $Color_Off \n# "
 

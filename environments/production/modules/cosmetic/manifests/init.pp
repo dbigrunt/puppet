@@ -3,14 +3,13 @@ class cosmetic {
     owner => 'root',
     group => 'root',
   }
-  file { '/etc/profile.d/bash_profile.sh':
-    source => 'puppet:///modules/cosmetic/bash_profile.sh',
+  file { '/root/.bash_profile':
+    source => 'puppet:///modules/cosmetic/bash_profile',
   }
-  file { '/etc/profile.d/git-prompt.sh':
+  file { '/root/.git-prompt.sh':
     source => 'puppet:///modules/cosmetic/git-prompt.sh',
   }
   file { '/etc/profile.d/history.sh':
-    source => 'puppet:///modules/cosmetic/history.sh',
+    source => 'puppet:///modules/cosmetic/profile.d/history.sh',
   }
 }
- 
