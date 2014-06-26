@@ -33,8 +33,14 @@ node 'vps38933.ovh.net' inherits default {
     ensure => directory,
   }
   file { '/etc/sudoers.d/xcarrillo':
-    content => 'xcarrillo  ALL=(ALL) NOPASSWD:/usr/bin/yum update',
+    content => 'xcarrillo  ALL=(ALL) NOPASSWD:/usr/bin/yum update, /usr/bin/puppet',
     mode    => '0440',
+  }
+  ssh_authorized_key { 'xcarrillo@ubuntu-tid':
+    ensure => present,
+    key    => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDMG1i3aMtbsXO/2F08yivDLDd9SU8MkUxZLku3xSvlXXYrJ0QXqwUC7REnwZC+kwS5Yg31P/WGix/j9v0atZzbTgI9sJ20XpA5zJjLJyT2YjNL2CPbgBNbI7hy0O86kMywwn7dC7RgXX8SYjqZsDJ7VGPfHUJNb2RFthvGLTlnAzjBCfpMuXhjsyJD9gMOORXDaSXX4+9cfhyOHhaqdXgxbmUxWt4r7NOOJw3aB1IQuBCKv5VHGHJBxXOVjiEQwhhJDwmM+Cbq21HwRRdIiMOhIZBtjTnuQRXg8/uVGYaI5pkIDbu50mcVx79KTaDNHEnYcUztgnlQUzErPzx3Xd2D',
+    type   => 'rsa',
+    user   => 'xcarrillo',
   }
   service { 'rsyslog':
     ensure => 'running',
