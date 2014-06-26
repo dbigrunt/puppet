@@ -23,17 +23,18 @@ node 'vps38933.ovh.net' inherits default {
   class { 'dropbox':
     users => 'root',
   }
-
   package { 'rdiff-backup':
     ensure => latest,
   }
-
   file { '/root/Dropbox/backups/vps38933/sql':
     ensure => directory,
   }
-
   file { '/root/Dropbox/backups/vps38933/rdiff':
     ensure => directory,
+  }
+  file { '/etc/sudoers.d/xcarrillo':
+    content => 'xcarrillo  ALL=(ALL) NOPASSWD:/usr/bin/yum update',
+    mode    => '0440',
   }
   service { 'rsyslog':
     ensure => 'running',
@@ -54,10 +55,8 @@ node 'vps38933.ovh.net' inherits default {
        hour    => 4,
        minute  => 20;
   }
-
   file { '/root/.gitconfig':
     ensure  => present,
     content => "[user] \n  name = Xavi Carrillo\n  email = xavi.carrillo@gmail.com\n",
   }
-
 }
