@@ -1,9 +1,9 @@
 # this file is managed by Puppet
 
-domain <%= domainname %>
-<% if !searchpath.empty? %>search <%= searchpath.join(" ") %>
+domain <%= @domainname %>
+<% if !@searchpath.empty? %>search <%= @searchpath.join(" ") %>
 <% end -%>
-<% nameservers.each do |ns| %>nameserver <%= @ns %>
+<% @nameservers.each do |ns| %>nameserver <%= ns %>
 <% end -%>
-<% options.each do |op| %>options <%= @op %>
+<% @options.each do |op| %>options <%= op %>
 <% end -%>
