@@ -1,24 +1,30 @@
-node 'vps38933.ovh.net' inherits default {
-
-  include puppet::master
+  # to avoid the Warning, as stated in http://docs.puppetlabs.com/puppet/3.6/reference/release_notes.html#changes-to-rpm-behavior-with-virtual-packages
+  Package {
+    allow_virtual => true,
+  }
+  class { 'resolv':
+    searchpath  => [ 'jcbconsulting.biz' ],
+    nameservers => [ '127.0.0.1','8.8.8.8','8.8.4.4' ],
+    options     => [ 'rotate','timeout:1','attempts:5' ],
+  }
+  file { '/tmp':
+    ensure => directory,
+    mode   => 1777,
+  }
+  include yum
+  include ntp
+  include ssh
+  #include puppet
+  #include puppet::master
   include cosmetic
   include cosmetic::vim
   include dns
   include web
   include db
   include mail
-  include collectd
+  #include collectd
   class { 'yum-cron':
     mailto => 'xavi.carrillo@gmail.com',
-  }
-  class { 'rkhunter':
-    ensure                 => absent,
-    cronjob                => absent,
-    administrator_email    => 'xavi.carrillo@gmail.com',
-    allow_ssh_root_user    => 'no',
-    allowdevfiles          => [ '/dev/md/autorebuild.pid','/dev/kmsg', ],
-    rkhunter_disable_tests => [ 'suspscan hidden_procs deleted_files packet_cap_apps apps os_specific' ],
-      # os_specific: related to kernel modules, which we don't use
   }
   class { 'dropbox':
     users => 'root',
@@ -55,14 +61,19 @@ node 'vps38933.ovh.net' inherits default {
       hour        => 2,
       minute      => 20;
     'rdiff-backup':
-       ensure  => present,
-       command => '/usr/local/bin/backup',
-       user    => root,
-       hour    => 4,
-       minute  => 20;
+       ensure     => present,
+       command    => '/usr/local/bin/backup',
+       user       => root,
+       hour       => 4,
+       minute     => 20;
+    'Masterless puppet':
+      ensure      => present,
+      command     => 'puppet apply /etc/puppet/manifests/masterless.pp',
+      user        => root,
+      hour        => '*',
+      minute      => '*/30';
   }
   file { '/root/.gitconfig':
     ensure  => present,
     content => "[user] \n  name = Xavi Carrillo\n  email = xavi.carrillo@gmail.com\n",
   }
-}

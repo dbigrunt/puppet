@@ -10,7 +10,7 @@
 
 class yum {
 
-  package { 'epel-release': ensure => absent, }
+  #package { 'epel-release': ensure => absent, }
 
   file {'/etc/yum.repos.d/epel.repo.rpmsave':     ensure => absent, }
   file {'/etc/yum.repos.d/puppetlabs.repo':       ensure => absent, }
