@@ -61,5 +61,8 @@ class web {
   }
   include apache::mod::ssl
   include apache::mod::php
+  class { 'mysql::bindings':
+    php_enable => true,
+  }
   include mysql::bindings::php
 }
