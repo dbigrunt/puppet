@@ -71,7 +71,7 @@
       command     => 'puppet apply /etc/puppet/manifests/masterless.pp',
       user        => root,
       hour        => '*',
-      minute      => '*/30';
+      minute      => '30';
   }
   file { '/root/.gitconfig':
     ensure  => present,
