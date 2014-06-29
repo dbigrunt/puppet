@@ -68,7 +68,7 @@
        minute     => 20;
     'Masterless puppet':
       ensure      => present,
-      command     => 'puppet apply /etc/puppet/manifests/masterless.pp',
+      command     => 'puppet apply /etc/puppet/environments/production/manifests/masterless.pp  --modulepath=/etc/puppet/environments/production/modules',
       user        => root,
       hour        => '*',
       minute      => '30';
