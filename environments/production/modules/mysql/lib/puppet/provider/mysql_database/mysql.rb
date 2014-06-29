@@ -7,7 +7,7 @@ Puppet::Type.type(:mysql_database).provide(:mysql, :parent => Puppet::Provider::
   def self.instances
     mysql([defaults_file, '-NBe', 'show databases'].compact).split("\n").collect do |name|
       attributes = {}
-      mysql([defaults_file, '-NBe', 'show variables like "%_database"', name].compact).split("\n").each do |line|
+      mysql([defaults_file, '-NBe', "show variables like '%_database'", name].compact).split("\n").each do |line|
         k,v = line.split(/\s/)
         attributes[k] = v
       end
@@ -31,7 +31,7 @@ Puppet::Type.type(:mysql_database).provide(:mysql, :parent => Puppet::Provider::
   end
 
   def create
-    mysql([defaults_file, '-NBe', "create database `#{@resource[:name]}` character set #{@resource[:charset]} collate #{@resource[:collate]}"].compact)
+    mysql([defaults_file, '-NBe', "create database if not exists `#{@resource[:name]}` character set #{@resource[:charset]} collate #{@resource[:collate]}"].compact)
 
     @property_hash[:ensure]  = :present
     @property_hash[:charset] = @resource[:charset]

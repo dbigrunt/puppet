@@ -31,7 +31,7 @@ test
     Puppet::Util.stubs(:which).with('mysql').returns('/usr/bin/mysql')
     File.stubs(:file?).with('/root/.my.cnf').returns(true)
     provider.class.stubs(:mysql).with([defaults_file, '-NBe', 'show databases']).returns('new_database')
-    provider.class.stubs(:mysql).with([defaults_file, '-NBe', 'show variables like "%_database"', 'new_database']).returns("character_set_database latin1\ncollation_database latin1_swedish_ci\nskip_show_database OFF")
+    provider.class.stubs(:mysql).with([defaults_file, '-NBe', "show variables like '%_database'", 'new_database']).returns("character_set_database latin1\ncollation_database latin1_swedish_ci\nskip_show_database OFF")
   end
 
   let(:instance) { provider.class.instances.first }
@@ -40,7 +40,7 @@ test
     it 'returns an array of databases' do
       provider.class.stubs(:mysql).with([defaults_file, '-NBe', 'show databases']).returns(raw_databases)
       raw_databases.each_line do |db|
-        provider.class.stubs(:mysql).with([defaults_file, '-NBe', 'show variables like "%_database"', db.chomp]).returns("character_set_database latin1\ncollation_database  latin1_swedish_ci\nskip_show_database  OFF")
+        provider.class.stubs(:mysql).with([defaults_file, '-NBe', "show variables like '%_database'", db.chomp]).returns("character_set_database latin1\ncollation_database  latin1_swedish_ci\nskip_show_database  OFF")
       end
       databases = provider.class.instances.collect {|x| x.name }
       parsed_databases.should match_array(databases)
@@ -56,7 +56,7 @@ test
 
   describe 'create' do
     it 'makes a database' do
-      provider.expects(:mysql).with([defaults_file, '-NBe', "create database `#{resource[:name]}` character set #{resource[:charset]} collate #{resource[:collate]}"])
+      provider.expects(:mysql).with([defaults_file, '-NBe', "create database if not exists `#{resource[:name]}` character set #{resource[:charset]} collate #{resource[:collate]}"])
       provider.expects(:exists?).returns(true)
       provider.create.should be_true
     end
