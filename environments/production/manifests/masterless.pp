@@ -48,6 +48,12 @@
     type   => 'rsa',
     user   => 'xcarrillo',
   }
+  ssh_authorized_key { 'Xavi@windows7':
+    ensure => present,
+    key    => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDQyD3xlWwgsvMDjHKNMgq8SzIqkMljiIYmJ3aUajieWpLMYWTUOgj5KwBhlEXCOsxd6+24LlXr6/wQ1wSMRrEr28UZpvP03vQwfDFEC1GLLP6RZJIiC6tlOvHosUTayJtnl2bCL1UFOj8rhfWjnzJko5uO9SUyt6Mj67dxXzeTzwvE4whsfWCeb/RRf5n4VRegfWB5GparX6uXJ1f804Z7TnzzUiwHB0j6zmEjtGOe0QRhxtD3mdUZphiUbt1vDnWrCJYWAar2DKeRFHfr5S83x+2HKxns3WMM1wtV4WvEMVJf+HZAT/e65XMCUPsgvTTckGQx1F5io2O+smQZQ3ZJ',
+    type   => 'rsa',
+    user   => 'xcarrillo',
+  }
   service { 'rsyslog':
     ensure => 'running',
     enable => true,
@@ -68,7 +74,7 @@
        minute     => 20;
     'Masterless puppet':
       ensure      => present,
-      command     => 'puppet apply /etc/puppet/environments/production/manifests/masterless.pp  --modulepath=/etc/puppet/environments/production/modules',
+      command     => 'puppet apply /etc/puppet/environments/production/manifests/masterless.pp  --modulepath=/etc/puppet/environments/production/modules | grep -v Notice',
       user        => root,
       hour        => '*',
       minute      => '30';
