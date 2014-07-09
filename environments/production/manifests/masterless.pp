@@ -39,7 +39,8 @@
     ensure => directory,
   }
   file { '/etc/sudoers.d/xcarrillo':
-    content => 'xcarrillo  ALL=(ALL) NOPASSWD:/usr/bin/yum update, /usr/bin/puppet',
+    content => 'xcarrillo  ALL=(ALL) NOPASSWD:/usr/bin/yum update, /usr/bin/puppet
+    ', # sudo complains if there is no carriage return
     mode    => '0440',
   }
   ssh_authorized_key { 'xcarrillo@ubuntu-tid':
