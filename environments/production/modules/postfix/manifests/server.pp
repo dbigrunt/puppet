@@ -125,7 +125,12 @@ class postfix::server (
   # Optional Spamassassin setup (using spampd)
   if $spamassassin {
     # Main packages and service they provide
-    package { [ 'spamassassin', 'spampd' ]: ensure => installed }
+    package { 'spamassassin': ensure => installed }
+    package { 'spampd':
+     provider => 'rpm',
+     ensure   => installed,
+     source   => 'ftp://mirror.switch.ch/pool/4/mirror/fedora/linux/releases/20/Everything/i386/os/Packages/s/spampd-2.30-15.noarch.rpm',
+    }
     # Note that we don't want the normal spamassassin (spamd) service
     service { 'spampd':
       require   => Package['spampd'],

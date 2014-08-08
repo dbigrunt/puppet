@@ -2,6 +2,7 @@
   Package {
     allow_virtual => true,
   }
+  include yum::thirdparty::epel
   class { 'resolv':
     searchpath  => [ 'jcbconsulting.biz' ],
     nameservers => [ '127.0.0.1','8.8.8.8','8.8.4.4' ],
@@ -26,6 +27,7 @@
   class { 'yum-cron':
     mailto => 'xavi.carrillo@gmail.com',
   }
+/*
   class { 'dropbox':
     users => 'root',
   }
@@ -38,6 +40,7 @@
   file { '/root/Dropbox/backups/vps38933/rdiff':
     ensure => directory,
   }
+*/
   file { '/etc/sudoers.d/xcarrillo':
     content => 'xcarrillo  ALL=(ALL) NOPASSWD:/usr/bin/yum update, /usr/bin/puppet
     ', # sudo complains if there is no carriage return
