@@ -2,7 +2,6 @@
   Package {
     allow_virtual => true,
   }
-  include yum::thirdparty::epel
   class { 'resolv':
     searchpath  => [ 'jcbconsulting.biz' ],
     nameservers => [ '127.0.0.1','8.8.8.8','8.8.4.4' ],
@@ -13,6 +12,7 @@
     mode   => 1777,
   }
   include yum
+  include yum::thirdparty::epel
   include ntp
   include ssh
   #include puppet
@@ -27,20 +27,17 @@
   class { 'yum-cron':
     mailto => 'xavi.carrillo@gmail.com',
   }
-/*
+
+  # First install the binaries: http://www.dropboxwiki.com/tips-and-tricks/install-dropbox-centos-gui-required
   class { 'dropbox':
     users => 'root',
   }
   package { 'rdiff-backup':
     ensure => latest,
   }
-  file { '/root/Dropbox/backups/vps38933/sql':
+  file { ['/root/Dropbox', '/root/Dropbox/backups', '/root/Dropbox/backups/sql', '/root/Dropbox/backups/rdiff' ]:
     ensure => directory,
   }
-  file { '/root/Dropbox/backups/vps38933/rdiff':
-    ensure => directory,
-  }
-*/
   file { '/etc/sudoers.d/xcarrillo':
     content => 'xcarrillo  ALL=(ALL) NOPASSWD:/usr/bin/yum update, /usr/bin/puppet
     ', # sudo complains if there is no carriage return

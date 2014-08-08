@@ -1,6 +1,7 @@
 class dropbox (
   $users = '',
 ) {
+  # First install the binaries: http://www.dropboxwiki.com/tips-and-tricks/install-dropbox-centos-gui-required
   file { '/etc/init.d/dropbox':
     ensure => present,
     source => 'puppet:///modules/dropbox/init.d_dropbox',
