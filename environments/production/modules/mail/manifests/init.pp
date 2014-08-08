@@ -87,6 +87,10 @@ class mail {
   }
   postfix::file { 'sender_canonical':
     source => 'puppet:///modules/mail/sender_canonical',
+  } ->
+  exec { 'create_sender_canonical.db':
+    command => '/usr/sbin/postmap hash:/etc/postfix/sender_canonical',
+    creates => '/etc/postfix/sender_canonical.db',
   }
 
   # Mails on /var/vmail/vhosts/domain/user/
