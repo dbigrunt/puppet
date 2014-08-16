@@ -12,11 +12,11 @@ $TTL    3H
 
 jcbconsulting.biz.          IN NS      ns1.jcbdns.com.
 jcbconsulting.biz.          IN NS      ns2.jcbdns.com.
-ns1.jcbconsulting.biz.      IN A       176.31.188.94
-ns2.jcbconsulting.biz.      IN A       176.31.188.94
-jcbconsulting.biz.          IN A       176.31.188.94
-webmail.jcbconsulting.biz.  IN A       176.31.188.94
-mail.jcbconsulting.biz.     IN A       176.31.188.94
+ns1.jcbconsulting.biz.      IN A       92.222.5.238
+ns2.jcbconsulting.biz.      IN A       92.222.5.238
+jcbconsulting.biz.          IN A       92.222.5.238
+webmail.jcbconsulting.biz.  IN A       92.222.5.238
+mail.jcbconsulting.biz.     IN A       92.222.5.238
 www.jcbconsulting.biz.      IN CNAME   jcbconsulting.biz.
 jcbconsulting.biz.          IN MX      10 mail.jcbconsulting.biz.
 

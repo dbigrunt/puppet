@@ -22,9 +22,9 @@ class dns {
         'type master',
         'file "maricel.es"',
       ],
-      '188.31.176.in-addr.arpa' => [
+      '5.222.92.in-addr.arpa' => [
         'type master',
-        'file "188.31.176.in-addr.arpa"',
+        'file "PTR"',
       ],
     },
   }
@@ -40,8 +40,8 @@ class dns {
   bind::server::file { 'maricel.es':
     source => 'puppet:///modules/dns/maricel.es',
   }
-  bind::server::file { '188.31.176.in-addr.arpa':
-    source => 'puppet:///modules/dns/188.31.176.in-addr.arpa',
+  bind::server::file { 'PTR':
+    source => 'puppet:///modules/dns/PTR',
   }
   file { '/etc/logrotate.d/named':
     ensure  => file,
