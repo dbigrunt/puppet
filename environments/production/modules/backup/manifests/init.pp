@@ -12,19 +12,27 @@ class backup {
           '/root/Dropbox/backups/rdiff' ]:
     ensure => directory,
   }
+  file { '/usr/local/bin/backup_sql.sh':
+    mode   => '0750',
+    source => 'puppet:///modules/backup/backup_sql.sh',
+  }
+  file { '/usr/local/bin/backup':
+    mode   => '0750',
+    source => 'puppet:///modules/backup/backup',
+  }
   cron {
     "backup sql":
-      ensure      => present,
-      environment => 'MAILTO=xavi.carrillo@gmail.com',
-      command     => '/opt/scripts/backups/backup_sql.sh /root/Dropbox/backups/vps38933/sql/',
-      user        => root,
-      hour        => 2,
-      minute      => 20;
+       ensure      => present,
+       environment => 'MAILTO=xavi.carrillo@gmail.com',
+       command     => '/usr/local/bin/backup_sql.sh /root/Dropbox/backups/sql',
+       user        => root,
+       hour        => 2,
+       minute      => 20;
     'rdiff-backup':
-       ensure     => present,
-       command    => '/usr/local/bin/backup',
-       user       => root,
-       hour       => 4,
-       minute     => 20;
+       ensure      => present,
+       command     => '/usr/local/bin/backup',
+       user        => root,
+       hour        => 4,
+       minute      => 20;
   }
 }

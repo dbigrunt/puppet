@@ -1,0 +1,9 @@
+#!/bin/bash
+
+/usr/bin/rdiff-backup --print-statistics --force /etc /root/Dropbox/backups/rdiff/etc
+/usr/bin/rdiff-backup --print-statistics --force /var/www /root/Dropbox/backups/rdiff/www
+/usr/bin/rdiff-backup --print-statistics --force /var/mail/vhosts /root/Dropbox/backups/rdiff/mail
+
+rdiff-backup --force --remove-older-than 1W /root/Dropbox/backups/rdiff/etc
+rdiff-backup --force --remove-older-than 1W /root/Dropbox/backups/rdiff/mail
+rdiff-backup --force --remove-older-than 1W /root/Dropbox/backups/rdiff/www
