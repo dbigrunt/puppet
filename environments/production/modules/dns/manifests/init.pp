@@ -48,6 +48,11 @@ class dns {
     owner   => 'root',
     group   => 'named',
     mode    => '0644',
-    source => 'puppet:///modules/dns/logrotate-named',
+    source  => 'puppet:///modules/dns/logrotate-named',
   }
+  file { '/etc/sysconfig/named':
+    ensure  => file,
+    source  => 'puppet:///modules/dns/sysconfig',
+  }
+
 }

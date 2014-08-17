@@ -23,20 +23,10 @@
   include web
   include db
   include mail
+  include backup
   #include collectd
   class { 'yum-cron':
     mailto => 'xavi.carrillo@gmail.com',
-  }
-
-  # First install the binaries: http://www.dropboxwiki.com/tips-and-tricks/install-dropbox-centos-gui-required
-  class { 'dropbox':
-    users => 'root',
-  }
-  package { 'rdiff-backup':
-    ensure => latest,
-  }
-  file { ['/root/Dropbox', '/root/Dropbox/backups', '/root/Dropbox/backups/sql', '/root/Dropbox/backups/rdiff' ]:
-    ensure => directory,
   }
   file { '/etc/sudoers.d/xcarrillo':
     content => 'xcarrillo  ALL=(ALL) NOPASSWD:/usr/bin/yum update, /usr/bin/puppet
@@ -60,25 +50,12 @@
     enable => true,
   }
   cron {
-    "backup sql":
-      ensure      => present,
-      environment => 'MAILTO=xavi.carrillo@gmail.com',
-      command     => '/opt/scripts/backups/backup_sql.sh /root/Dropbox/backups/vps38933/sql/',
-      user        => root,
-      hour        => 2,
-      minute      => 20;
-    'rdiff-backup':
-       ensure     => present,
-       command    => '/usr/local/bin/backup',
-       user       => root,
-       hour       => 4,
-       minute     => 20;
     'Masterless puppet':
       ensure      => present,
       command     => 'puppet apply /etc/puppet/environments/production/manifests/masterless.pp  --modulepath=/etc/puppet/environments/production/modules | grep -v Notice',
       user        => root,
       hour        => '*',
-      minute      => '30';
+      minute      => '15',
   }
   file { '/root/.gitconfig':
     ensure  => present,
