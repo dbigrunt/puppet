@@ -25,6 +25,8 @@
   include mail
   include backup
   #include collectd
+  include monitoritzacio
+
   class { 'yum-cron':
     mailto => 'xavi.carrillo@gmail.com',
   }
