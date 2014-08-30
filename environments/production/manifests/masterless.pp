@@ -35,15 +35,9 @@
     ', # sudo complains if there is no carriage return
     mode    => '0440',
   }
-  ssh_authorized_key { 'xcarrillo@ubuntu-tid':
+  ssh_authorized_key { 'Xavi@tatooshiba':
     ensure => present,
-    key    => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDMG1i3aMtbsXO/2F08yivDLDd9SU8MkUxZLku3xSvlXXYrJ0QXqwUC7REnwZC+kwS5Yg31P/WGix/j9v0atZzbTgI9sJ20XpA5zJjLJyT2YjNL2CPbgBNbI7hy0O86kMywwn7dC7RgXX8SYjqZsDJ7VGPfHUJNb2RFthvGLTlnAzjBCfpMuXhjsyJD9gMOORXDaSXX4+9cfhyOHhaqdXgxbmUxWt4r7NOOJw3aB1IQuBCKv5VHGHJBxXOVjiEQwhhJDwmM+Cbq21HwRRdIiMOhIZBtjTnuQRXg8/uVGYaI5pkIDbu50mcVx79KTaDNHEnYcUztgnlQUzErPzx3Xd2D',
-    type   => 'rsa',
-    user   => 'xcarrillo',
-  }
-  ssh_authorized_key { 'Xavi@windows7':
-    ensure => present,
-    key    => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDQyD3xlWwgsvMDjHKNMgq8SzIqkMljiIYmJ3aUajieWpLMYWTUOgj5KwBhlEXCOsxd6+24LlXr6/wQ1wSMRrEr28UZpvP03vQwfDFEC1GLLP6RZJIiC6tlOvHosUTayJtnl2bCL1UFOj8rhfWjnzJko5uO9SUyt6Mj67dxXzeTzwvE4whsfWCeb/RRf5n4VRegfWB5GparX6uXJ1f804Z7TnzzUiwHB0j6zmEjtGOe0QRhxtD3mdUZphiUbt1vDnWrCJYWAar2DKeRFHfr5S83x+2HKxns3WMM1wtV4WvEMVJf+HZAT/e65XMCUPsgvTTckGQx1F5io2O+smQZQ3ZJ',
+    key    => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDAHFYxdcWFAj/GOvG1SEutIqd6ybne1pkkX6kJEE4UQaC0S2Gxn0/9cuXSYG1EFgTF9c/rVC/kCed5ktVC8/rCjDwyOi9BNdKsBIwLpQIDSG+8kBMsLOwIta4sq3TA9QclwEDDdF07J3zryWxB0+eoTg5jVMtQo5GQlKjRR0qv3e2ybUWM6sg4Gs82PA7du9Z3PgKLww76GkwsNJzgp83SAwUVWv27+5rf6RNjy9WzHkm/qe31zhq18rnRINUbhgkcgYBoZVGoFsO0N1VVlJ58fhXKVJpt8INmjUsnO+p4zK9pD5tCVROnysIczBeXttXaCPJ3zuVQF+G2wIFDgExb',
     type   => 'rsa',
     user   => 'xcarrillo',
   }
