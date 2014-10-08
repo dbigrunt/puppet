@@ -18,6 +18,10 @@ class dns {
         'type master',
         'file "jcbconsulting.biz"',
       ],
+      'hastaelfindelmundo.net' => [
+        'type master',
+        'file "hastaelfindelmundo.net"',
+      ],
       'maricel.es' => [
         'type master',
         'file "maricel.es"',
@@ -39,6 +43,9 @@ class dns {
   }
   bind::server::file { 'maricel.es':
     source => 'puppet:///modules/dns/maricel.es',
+  }
+  bind::server::file { 'hastaelfindelmundo.net':
+    source => 'puppet:///modules/dns/hastaelfindelmundo.net',
   }
   bind::server::file { 'PTR':
     source => 'puppet:///modules/dns/PTR',

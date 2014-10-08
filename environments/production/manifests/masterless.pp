@@ -50,7 +50,7 @@
       ensure      => present,
       command     => 'puppet apply /etc/puppet/environments/production/manifests/masterless.pp  --modulepath=/etc/puppet/environments/production/modules | grep -v Notice',
       user        => root,
-      hour        => '*',
+      hour        => '3',
       minute      => '15',
   }
   file { '/root/.gitconfig':

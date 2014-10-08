@@ -59,6 +59,15 @@ class web {
     ip            => "$::ipaddress",
     docroot       => '/var/www/vhosts/webmail.jcbconsulting.biz',
   }
+  apache::vhost { 'hastaelfindelmundo.net':
+    ip            => "$::ipaddress",
+    serveraliases => 'www.hastaelfindelmundo.net',
+    docroot       => '/var/www/vhosts/hastaelfindelmundo.net',
+    aliases => [
+      { alias     => '/webmail', path => '/var/www/html/webmail' },
+    ],
+  }
+
   include apache::mod::ssl
   include apache::mod::php
   class { 'mysql::bindings':
