@@ -47,11 +47,11 @@
   }
   cron {
     'Masterless puppet':
-      ensure      => present,
-      command     => 'puppet apply /etc/puppet/environments/production/manifests/masterless.pp  --modulepath=/etc/puppet/environments/production/modules | grep -v Notice',
-      user        => root,
-      hour        => '3',
-      minute      => '15',
+      ensure  => present,
+      command => 'puppet apply /etc/puppet/environments/production/manifests/masterless.pp --modulepath=/etc/puppet/environments/production/modules | grep -v Notice',
+      user    => root,
+      hour    => '*',
+      minute  => '30',
   }
   file { '/root/.gitconfig':
     ensure  => present,
