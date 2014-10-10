@@ -26,6 +26,26 @@
   include backup
   #include collectd
   include monitoritzacio
+  class { 'monit':
+    admin          => 'xavi.carrillo@gmail.com',
+    logfile        => '/var/log/monit.log',
+    interval       => 60, # seconds
+    only_localhost => false, # So that we can check it on  http://puppet.aislada.hi.inet:2812/ (admin/monit)
+    allows         => 'admin:monit',
+  }
+  monit::monitor { 'clamsmtp-clamd':
+    pidfile      => '/var/run/clamd.clamsmtp/clamd.pid',
+    socket       => '/var/run/clamd.clamsmtp/clamd.sock',
+    start_script => '/etc/init.d/clamsmtp-clamd start',
+    stop_script  => '/etc/init.d/clamsmtp-clamd stop',
+    checks       => ["if 3 restarts within 3 cycles then timeout"],
+  }
+  monit::monitor { 'spampd':
+    pidfile      => '/var/run/spampd.pid',
+    start_script => '/etc/init.d/spampd start',
+    stop_script  => '/etc/init.d/spampd stop',
+    checks       => ["if 3 restarts within 3 cycles then timeout"],
+  }
 
   class { 'yum-cron':
     mailto => 'xavi.carrillo@gmail.com',
@@ -50,7 +70,7 @@
       ensure  => present,
       command => 'puppet apply /etc/puppet/environments/production/manifests/masterless.pp --modulepath=/etc/puppet/environments/production/modules | grep -v Notice',
       user    => root,
-      hour    => '*',
+      hour    => '3',
       minute  => '30',
   }
   file { '/root/.gitconfig':
