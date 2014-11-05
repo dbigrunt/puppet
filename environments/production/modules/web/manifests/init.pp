@@ -67,6 +67,10 @@ class web {
       { alias     => '/webmail', path => '/var/www/html/webmail' },
     ],
   }
+  # wp-statistcs needs the BC math PHP extension
+  package { 'php-bcmath':
+    ensure => present,
+  }
 
   include apache::mod::ssl
   include apache::mod::php
