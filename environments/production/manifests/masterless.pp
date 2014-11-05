@@ -46,6 +46,19 @@
     stop_script  => '/etc/init.d/spampd stop',
     checks       => ["if 3 restarts within 3 cycles then timeout"],
   }
+  monit::monitor { 'dovecot':
+    pidfile      => '/var/run/dovecot/master.pid',
+    start_script => '/etc/init.d/dovecot start',
+    stop_script  => '/etc/init.d/dovecot stop',
+    checks       => ["if 3 restarts within 3 cycles then timeout"],
+  }
+  monit::monitor { 'mysqld':
+    pidfile      => '/var/run/mysqld/mysqld.pid',
+    socket       => '/var/lib/mysql/mysql.sock',
+    start_script => '/etc/init.d/mysqld start',
+    stop_script  => '/etc/init.d/mysqld stop',
+    checks       => ["if 3 restarts within 3 cycles then timeout"],
+  }
 
   class { 'yum-cron':
     mailto => 'xavi.carrillo@gmail.com',
