@@ -59,6 +59,13 @@
     stop_script  => '/etc/init.d/mysqld stop',
     checks       => ["if 3 restarts within 3 cycles then timeout"],
   }
+  monit::monitor { 'named':
+    pidfile      => '/var/run/named/named.pid',
+    start_script => '/etc/init.d/named start',
+    stop_script  => '/etc/init.d/named stop',
+    checks       => ["if 3 restarts within 3 cycles then timeout"],
+  }
+
 
   class { 'yum-cron':
     mailto => 'xavi.carrillo@gmail.com',
