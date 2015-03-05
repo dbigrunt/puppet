@@ -74,6 +74,8 @@ class web {
 
   include apache::mod::ssl
   include apache::mod::php
+  include apache::mod::rewrite
+
   class { 'mysql::bindings':
     php_enable => true,
   }
