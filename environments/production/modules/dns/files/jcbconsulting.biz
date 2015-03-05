@@ -3,12 +3,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 $TTL    3H
-@       IN      SOA  @   vps38933.ovh.net. (
-                                              2014040101  ; Serial
+@       IN       SOA  @   vps72178.ovh.net. (
+                                              2015030401  ; Serial
                                               1D          ; Refresh
                                               1H          ; Retry
                                               1W          ; Expire
                                               3H )        ; Minimum
+
+@       86400               TXT "v=spf1 ip4:92.222.5.238 ip6:2001:41d0:52:a00::9b8 ~all"
+
 
 jcbconsulting.biz.          IN NS      ns1.jcbdns.com.
 jcbconsulting.biz.          IN NS      ns2.jcbdns.com.
