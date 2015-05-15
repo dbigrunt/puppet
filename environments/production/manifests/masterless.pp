@@ -81,6 +81,13 @@
     type   => 'rsa',
     user   => 'xcarrillo',
   }
+  ssh_authorized_key { 'xavier.carrillo@bcn-mac-063.odigeo.org':
+    ensure => present,
+    key    => 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDZJjfVWSpty/Q/8fqRwy+hXD2DkYjHDyC+p2lNEuBWSgktNqaXs6ZnY5M3Shx4q7fBWAqLAns4i1KZH7P343ljN386UDr7d8dlYFOpXcpBvpFbhnnEJX0Z3lD4RH5JVHY4PuEwGPjfxTgi6aNtBUmGGPu0zCjBHAMXL9ZFYwx/QCEjoNP1kaq/GyBuczmw4Lw+dGAyGR0pQM1WRVdAzUAWM4C2GOeLQj1hBJwPhvhDIm8PZTJRvWbeDB8hJZuigCeHyvtbEYjWMDzJrxRlAnYIDvsVMIQu74cFspC1MMxuOuIPx6KuP7GQMI2wu5B1i74kiX5MBbfBfXclWruc1TEPlt5YygKaeZnS4dXTIsn3NdQvw8qkFlQgaY1K00cm0WUcVdkVY27H7tcCsmFDe1B2USJDC+KgsfsKUblD3SPrlDwupMBgLIeLPEPNbz6H/zfr8l5hN2xNRqCHIZ+eZe1Gk0ZHZY6D9a78ArveW20WXiBe/zCZkTA9F2ykb3ROFmbNuczULPMG9MzyVX2ZjhAQW3rOjFGKRzjWerfl2ewMc+2g883CF0rJAKpSQ2lacJjE8ysjlliTm/fD3npYQ0bZIuwc2fvTnTBdKk2/ms7yADQX48kY4PFVi8sF5mEQtki4l6R8e3qMOg2Sr9zaAZKXY4UrdYwURCVISEYZqYgvBw==', 
+    type   => 'rsa',
+    user   => 'xcarrillo',
+  }
+
   service { 'rsyslog':
     ensure => 'running',
     enable => true,
