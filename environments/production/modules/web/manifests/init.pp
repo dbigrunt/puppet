@@ -34,14 +34,14 @@ class web {
     recurse => true,
   }
   # Logs in /var/log/httpd/
-  apache::vhost { 'mundodisea.com':
-    ip            => "$::ipaddress",
-    serveraliases => 'www.mundodisea.com',
-    docroot       => '/var/www/vhosts/mundodisea.com',
-    aliases => [
-      { alias     => '/webmail', path => '/var/www/html/webmail' },
-    ],
-  }
+  #apache::vhost { 'mundodisea.com':
+  #  ip            => "$::ipaddress",
+  #  serveraliases => 'www.mundodisea.com',
+  #  docroot       => '/var/www/vhosts/mundodisea.com',
+  #  aliases => [
+  #    { alias     => '/webmail', path => '/var/www/html/webmail' },
+  #  ],
+  #}
   apache::vhost { 'maricel.es':
     ip            => "$::ipaddress",
     serveraliases => 'www.maricel.es',
