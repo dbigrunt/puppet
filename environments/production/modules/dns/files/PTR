@@ -4,7 +4,7 @@
 
 $TTL    3H
 @       IN      SOA  @   vps72178.ovh.net. (
-                                              2014100801  ; Serial
+                                              2015211001  ; Serial
                                               1D          ; Refresh
                                               1H          ; Retry
                                               1W          ; Expire
@@ -12,7 +12,6 @@ $TTL    3H
 
                   IN NS   ns1.jcbdns.com.
 238               IN PTR  mundodisea.com.
-238               IN PTR  maricel.es.
 238               IN PTR  jcbconsulting.biz.
 238               IN PTR  jcbdns.com.
 238               IN PTR  hastaelfindelmundo.net.

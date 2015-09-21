@@ -42,14 +42,6 @@ class web {
   #    { alias     => '/webmail', path => '/var/www/html/webmail' },
   #  ],
   #}
-  apache::vhost { 'maricel.es':
-    ip            => "$::ipaddress",
-    serveraliases => 'www.maricel.es',
-    docroot       => '/var/www/vhosts/maricel.es',
-    aliases => [
-      { alias     => '/webmail', path => '/var/www/html/webmail' },
-    ],
-  }
   apache::vhost { 'jcbconsulting.biz':
     ip            => "$::ipaddress",
     serveraliases => 'www.jcbconsulting.biz',

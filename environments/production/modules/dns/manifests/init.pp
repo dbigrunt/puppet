@@ -1,6 +1,7 @@
 class dns {
   include bind
   bind::server::conf { '/etc/named.conf':
+    recursion         => 'no',
     listen_on_addr    => [ 'any' ],
     listen_on_v6_addr => [ 'any' ],
     forwarders        => [ '8.8.8.8', '8.8.4.4' ],
@@ -22,10 +23,6 @@ class dns {
         'type master',
         'file "hastaelfindelmundo.net"',
       ],
-      'maricel.es' => [
-        'type master',
-        'file "maricel.es"',
-      ],
       '5.222.92.in-addr.arpa' => [
         'type master',
         'file "PTR"',
@@ -40,9 +37,6 @@ class dns {
   }
   bind::server::file { 'jcbconsulting.biz':
     source => 'puppet:///modules/dns/jcbconsulting.biz',
-  }
-  bind::server::file { 'maricel.es':
-    source => 'puppet:///modules/dns/maricel.es',
   }
   bind::server::file { 'hastaelfindelmundo.net':
     source => 'puppet:///modules/dns/hastaelfindelmundo.net',
