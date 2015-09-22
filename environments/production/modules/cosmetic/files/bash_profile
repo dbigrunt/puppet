@@ -16,16 +16,15 @@ export PATH
 # Load in the git branch prompt script.
 source ~/.git-prompt.sh
 
-Black="\[\033[0;30m\]"        # Black
-Red="\[\033[0;31m\]"          # Red
-Green="\[\033[0;32m\]"        # Green
-Yellow="\[\033[0;33m\]"       # Yellow
-Blue="\[\033[0;34m\]"         # Blue
-Purple="\[\033[0;35m\]"       # Purple
-Cyan="\[\033[0;36m\]"         # Cyan
-White="\[\033[0;37m\]"        # White
+BLACK="\033[0;30m"
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[0;33m"
+BLUE="\033[0;34m"
+PURPLE="\033[0;35m"
+CYAN="\033[0;36m"
+WHITE="\033[0;37m"
+COLOR_OFF="\033[0m" # Text Reset
 
-Color_Off="\[\033[0m\]"       # Text Reset
-
-PS1="$Cyan\u@\h$Color_Off:$Yellow\w$Purple\$(__git_ps1) $Color_Off \n# "
+PS1="$CYAN\u@\h$COLOR_OFF:$YELLOW\w$PURPLE\$(__git_ps1) $COLOR_OFF \n# "
 
