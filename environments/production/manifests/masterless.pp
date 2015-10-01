@@ -11,6 +11,16 @@
     ensure => directory,
     mode   => 1777,
   }
+
+  class { 'transmission_daemon':
+    download_dir   => '/var/lib/transmission/downloads',
+    incomplete_dir => '/tmp/downloads',
+    rpc_url        => 'bittorrent',
+    rpc_port       => 9091,
+    rpc_password   => 'lasmargaritas',
+    rpc_whitelist  => [ ], #'195.244.215.132', # Gib
+	}
+
   include yum
   include yum::thirdparty::epel
   include ntp
