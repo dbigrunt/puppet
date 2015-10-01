@@ -28,3 +28,5 @@ COLOR_OFF="\033[0m" # Text Reset
 
 PS1="$CYAN\u@\h$COLOR_OFF:$YELLOW\w$PURPLE\$(__git_ps1) $COLOR_OFF \n# "
 
+alias puppeta='puppet apply /etc/puppet/environments/production/manifests/masterless.pp  --modulepath=/etc/puppet/environments/production/modules'
+alias puppetano='puppet apply /etc/puppet/environments/production/manifests/masterless.pp  --modulepath=/etc/puppet/environments/production/modules --noop'
