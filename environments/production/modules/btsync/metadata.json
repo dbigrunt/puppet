@@ -1,0 +1,43 @@
+{
+  "name": "KyleAnderson-btsync",
+  "version": "0.0.3",
+  "source": "https://github.com/solarkennedy/puppet-btsync",
+  "author": "Kyle Anderson <kyle@xkyle.com",
+  "license": "Apache License, Version 2.0",
+  "summary": "Creates folders synchronized by btsync",
+  "description": "Creates folders synchronized by btsync. http://labs.bittorrent.com/experiments/sync.html",
+  "project_page": "https://github.com/solarkennedy/puppet-btsync",
+  "dependencies": [
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": "1.0.0"
+    }
+  ],
+  "types": [
+
+  ],
+  "checksums": {
+    "Gemfile": "b36d478b09fc737c8dbec08947fd8464",
+    "Gemfile.lock": "87b66bb5d850982c47352fee9e274fc0",
+    "LICENSE": "cdbf8d74b765504fbdf8e154bb4458a1",
+    "Modulefile": "24f4530b56013bcd2c53d0a302689041",
+    "README.md": "3d986deef2c219bacb43c7879b1e2f76",
+    "Rakefile": "ea057d5a33d76396bfd286e1d8f534f5",
+    "files/download-btsyncs.sh": "6c136d2fc9ed8bad67c2d433ce70fb15",
+    "manifests/config.pp": "a1c0739efc6a257e69dfb721a46a8a99",
+    "manifests/init.pp": "481df8704a96d8cb20b76d016f558a25",
+    "manifests/install.pp": "33d13fdcb17839a33db91cf6c458e396",
+    "manifests/service.pp": "2a25c70bf2270d6c17060ad82025ecf0",
+    "manifests/shared_folder.pp": "82d15223a86a9fa5421f7e4100f56dcb",
+    "spec/classes/btsync_config_spec.rb": "810747e2fa08b4d9a13d78eb05b015b6",
+    "spec/classes/btsync_install_spec.rb": "b54034d5370619fa9834d5054e79f936",
+    "spec/classes/btsync_service_spec.rb": "642cfbdc5a0057dde0e8ce563acf46cb",
+    "spec/classes/btsync_spec.rb": "de9bc14b73593f1e60c261d8fba36399",
+    "spec/spec_helper.rb": "0db89c9a486df193c0e40095422e19dc",
+    "templates/btsync.conf.init.erb": "013691d07e553c6e2391ae8fcbaf8cbc",
+    "templates/btsync_footer.conf.erb": "be14be796b0dd83ae72ad8066a173ab9",
+    "templates/btsync_header.conf.erb": "ea2073fc5f69bf1c8348a8e110158273",
+    "templates/shared_folder.erb": "aa213cfca4e42ae825a2d6e07d1fabe7",
+    "tests/init.pp": "e15c64e47c8968a810bb6db94833281f"
+  }
+}

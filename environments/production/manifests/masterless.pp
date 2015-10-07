@@ -21,6 +21,9 @@
     rpc_whitelist  => [ ], #'195.244.215.132', # Gib
 	}
 
+  class { 'btsync': }
+  btsync::shared_folder { '/var/lib/transmission/downloads/': secret => 'AZC4C5Y6UACNK227CNLKUXZ76KUJ2KWXY' }
+
   include yum
   include yum::thirdparty::epel
   include ntp

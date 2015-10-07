@@ -48,44 +48,32 @@ class transmission_daemon (
     ensure => installed,
   }
 
-  exec { "stop-daemon":
-    command => "/sbin/service transmission-daemon stop", #or change to 
-  }
-
   file { "${download_dir}":
-    ensure => directory,
+    ensure  => directory,
     recurse => true,
     require => Package['transmission-daemon'],
-#    owner => "debian-transmission",
-#    group => "debian-transmission",
-#    mode => "ug+rw,u+x"
   }
 
   if $incomplete_dir {
     file { "${incomplete_dir}":
-      ensure => directory,
+      ensure  => directory,
       recurse => true,
       require => Package['transmission-daemon'],
-#      owner => "debian-transmission",
-#      group => "debian-transmission",
-#      mode => "ug+rw,u+x"
     }
   }
 
   file { 'settings.json':
-    path => "${config_path}/settings.json",
-    ensure => file,
-    require => [Package['transmission-daemon'],Exec['stop-daemon']],
+    path    => "${config_path}/settings.json",
+    ensure  => file,
     content => template("${module_name}/settings.json.erb"),
+    require => Package['transmission-daemon'],
+    notify  => Service['transmission-daemon'],
   }
 
   service { 'transmission-daemon':
-    name => 'transmission-daemon',
-    ensure => running,
-    enable => true,
-    hasrestart => true,
-    hasstatus => true,
-    subscribe => File['settings.json'],
+    name    => 'transmission-daemon',
+    ensure  => running,
+    enable  => true,
   }
 
   if $rpc_url and $blocklist_url {
@@ -98,22 +86,22 @@ class transmission_daemon (
     }
     cron { 'update-blocklist':
       command => "/usr/bin/transmission-remote http://127.0.0.1:${rpc_port}${rpc_url}${opt_auth} --blocklist-update 2>&1 > /tmp/blocklist-update.log",
-      user => root,
-      hour => 2,
-      minute => 0,
+      user    => root,
+      hour    => 2,
+      minute  => 0,
       require => Package['transmission-daemon'],
     }
   }
 
-  if $script_torrent_done {
-    file { 'torrent-done.sh':
-      path => $script_done,
-      ensure => file,
-      mode => "+x",
-      source => $script_torrent_done,
-      before => File['settings.json'],
-      require => Package['transmission-daemon'],
-      notify => Service['transmission-daemon'],
-    }
-  }
+#  if $script_torrent_done {
+#    file { 'torrent-done.sh':
+#      path    => $script_done,
+#      ensure  => file,
+#      mode    => "+x",
+#      source  => $script_torrent_done,
+#      before  => File['settings.json'],
+#      require => Package['transmission-daemon'],
+#      notify  => Service['transmission-daemon'],
+#    }
+#  }
 }
