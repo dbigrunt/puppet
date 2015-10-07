@@ -1,3 +1,6 @@
+##########################################################################
+# This file is centrally managed, any manual changes will be OVERWRITTEN #
+##########################################################################
 # chkconfig: 345 85 15
 # description: Startup script for dropbox daemon
 #
