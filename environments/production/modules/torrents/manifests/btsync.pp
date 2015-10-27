@@ -1,6 +1,7 @@
 class btsync {
   # Install the binary on /usr/bin from https://www.getsync.com/
   # Once btsync is running, go to hastaelfindelmundo.net:8888/gui/ and set up a shared folder . By doing so we don't upload the SECRETKEY to github
+  # Remember as well to uncheck the 'Store deleted files in folder archive' under Preferences, or btsync will keep a backup of the deleted files under .btsync
   file { '/etc/init.d/btsync':
     mode   => '0755',
     source => 'puppet:///modules/torrents/etc/init.d/btsync',

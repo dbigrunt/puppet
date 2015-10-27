@@ -1,4 +1,8 @@
+# http://forums.sentora.org/showthread.php?tid=1132
 class mail {
+  package { [ 'clamav', 'clamav-update', 'clamav-server', 'spamassassin', 'amavisd-new' ]:
+    ensure => installed,
+  }
   group { 'vmail':
     ensure => present,
   } ->
@@ -7,14 +11,26 @@ class mail {
     home       => '/var/mail',
     managehome => true,
   }
+  file { '/etc/freshclam.conf':
+    ensure => file,
+    source => 'puppet:///modules/mail/etc/freshclam.conf',
+  }
+  file { '/etc/sysconfig/freshclam':
+    ensure => file,
+    source => 'puppet:///modules/mail/etc/sysconfig/freshclam',
+  }
+  file { '/etc/amavisd/amavisd.conf':
+    ensure => file,
+    source => 'puppet:///modules/mail/etc/amavisd/amavisd.conf',
+  }
+   
   class { 'dovecot':
     plugins                    => [ 'mysql' ],
     protocols                  => 'imap pop3',
     verbose_proctitle          => 'yes',
-    auth_include               => 'sql',
+    auth_include               => [ 'sql' ],
     disable_plaintext_auth     => 'no',
     mail_location              => 'maildir:/var/mail/vhosts/%d/%n',
-    #mail_location              => 'maildir:~/Maildir',
     auth_listener_userdb_mode  => '0660',
     auth_listener_userdb_group => 'vmail',
     auth_listener_postfix      => true,
@@ -66,14 +82,14 @@ class mail {
     #ssl                   => 'jcbconsulting.biz',
     submission            => true,
     postgrey              => true,
-    clamav                => true, # depends on https://github.com/thias/puppet-modules/tree/master/modules-wip/clamav
-    spamassassin          => true, # depends on http://dl.fedoraproject.org/pub/fedora/linux/releases/20/Everything/i386/os/Packages/s/spampd-2.30-15.noarch.rpm
+    clamav                => false,
+    spamassassin          => false, # depends on http://dl.fedoraproject.org/pub/fedora/linux/releases/20/Everything/i386/os/Packages/s/spampd-2.30-15.noarch.rpm
     sa_skip_rbl_checks    => '0',
     spampd_children       => '4',
     # Send all emails to ClamSMTP, which sends to spampd on 10026
-    smtp_content_filter   => 'smtp:127.0.0.1:10025',
+    #smtp_content_filter   => [ 'smtp:127.0.0.1:10025' ],
     # This is where we get emails back from spampd
-    master_services       => [ '127.0.0.1:10027 inet n  -       n       -      20       smtpd'],
+    #master_services       => [ '127.0.0.1:10027 inet n  -       n       -      20       smtpd'],
   }
 
   postfix::file { 'mysql-virtual-mailbox-domains.cf':
@@ -109,5 +125,14 @@ class mail {
   #Roundcubemail webmail
   package { 'php-xml':
     ensure => installed,
+  }
+
+  cron {
+    'Update ClamAV and SpamAssassin':
+      ensure  => present,
+      command => '/bin/freshclam ; /bin/sa-update -D',
+      user    => root,
+      hour    => '3',
+      minute  => '30',
   }
 }

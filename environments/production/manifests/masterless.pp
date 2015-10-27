@@ -11,34 +11,30 @@
     ensure => directory,
     mode   => 1777,
   }
-
-  class { 'transmission_daemon':
-    download_dir   => '/var/lib/transmission/downloads',
-    incomplete_dir => '/tmp/downloads',
-    rpc_url        => 'bittorrent',
-    rpc_port       => 9091,
-    rpc_password   => 'lasmargaritas',
-    rpc_whitelist  => [ ], #'195.244.215.132', # Gib
-	}
-
-  class { 'btsync': }
-  btsync::shared_folder { '/var/lib/transmission/downloads/': secret => 'AZC4C5Y6UACNK227CNLKUXZ76KUJ2KWXY' }
-
+#  cron {
+#    'Masterless puppet':
+#      ensure  => present,
+#      command => 'puppet apply /etc/puppet/environments/production/manifests/masterless.pp --modulepath=/etc/puppet/environments/production/modules | grep -v Notice',
+#      user    => root,
+#      hour    => '3',
+#      minute  => '30',
+#  }
+ 
   include yum
   include yum::thirdparty::epel
-  include ntp
+  #include backup
+  #include ntp # doesnt seem to work on centos7 with the new ovh vps: cap_set_proc() failed to drop root privileges: Operation not permitted
   include ssh
-  #include puppet
-  #include puppet::master
+  #include collectd
+  #include monitoritzacio
   include cosmetic
   include cosmetic::vim
   include dns
   include web
   include db
-  include mail
-  include backup
-  #include collectd
-  include monitoritzacio
+  #include mail
+  include torrents
+
   class { 'monit':
     admin          => 'xavi.carrillo@gmail.com',
     logfile        => '/var/log/monit.log',
@@ -81,7 +77,22 @@
 
 
   class { 'yum-cron':
-    mailto => 'xavi.carrillo@gmail.com',
+    email_from => "$::id@$::fqdn",
+    email_to   => 'xavi.carrillo@gmail.com',
+  }
+  user { 'xcarrillo':
+    ensure     => present,
+    password   => '$6$qeB1K1QC$lFw0uc0iKvPACE3IL0YUeinMNMJZRvIX/eLBtRTDwEn1u4MsW0fx17Iz..ERqIRwnmqXKHEgBYQlTp1yx5y/G/',
+    home       => '/home/xcarrillo',
+    managehome => true,
+  } 
+  file { '/home/xcarrillo':
+    ensure => directory,
+    owner  => 'xcarrillo',
+    group  => 'xcarrillo',
+  }
+  package { 'sudo':
+    ensure => installed,
   }
   file { '/etc/sudoers.d/xcarrillo':
     content => 'xcarrillo  ALL=(ALL) NOPASSWD:/usr/bin/yum update, /usr/bin/puppet
@@ -94,26 +105,21 @@
     type   => 'rsa',
     user   => 'xcarrillo',
   }
-  ssh_authorized_key { 'xcperramon@GIB-ML013.local':
+  ssh_authorized_key { 'xcarrillo@GIB-ML013.local':
     ensure => present,
     key    => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC8AXz98WGhIUfmrBxcXQfL0FHLlJLwTloEUtxlLuYuyD3DYOeLgNHWE44m1NiiHGEzbmOzkqusPkYyEAYI+PSN5C/Xtiy/f2WHYEDK7lHDNm8t031DUlMzAbzNO+4VN6+GOJwTCjuX/MuI5lQqIJzsTvDdMGxlM9OkF9ingbOwDLH8+HwE8deHOYtGV0B4Ppb/oiz1SPl0GXQYSP8qsvo/ciOcrhM8Q4qgjvWMV6vKvVq5B8PSkTaLqPLXcNSVAK4WK4SU7i9w7ZVNd5+Bz/5yqKM2nH1/kluH7pmcze6wO0pW2tYBMPwceY15IbpcsH7R3qEzDoMfD6HAszyueStH', 
     type   => 'rsa',
     user   => 'xcarrillo',
   }
 
+  package { 'rsyslog':
+    ensure => installed,
+  }
   service { 'rsyslog':
     ensure => 'running',
     enable => true,
   }
-  cron {
-    'Masterless puppet':
-      ensure  => present,
-      command => 'puppet apply /etc/puppet/environments/production/manifests/masterless.pp --modulepath=/etc/puppet/environments/production/modules | grep -v Notice',
-      user    => root,
-      hour    => '3',
-      minute  => '30',
-  }
-  file { '/root/.gitconfig':
+ file { '/root/.gitconfig':
     ensure  => present,
     content => "[user] \n  name = Xavi Carrillo\n  email = xavi.carrillo@gmail.com\n",
   }

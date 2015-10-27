@@ -6,7 +6,7 @@ class web {
     keepalive         => 'On',
     keepalive_timeout => '15',
     server_signature  => 'Off',
-    server_tokens     => 'None',
+    server_tokens     => 'prod',
   }
   augeas { "php.ini":
     notify  => Service[httpd],

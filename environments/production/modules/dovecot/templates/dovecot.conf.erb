@@ -1,3 +1,6 @@
+##########################################################################
+# This file is centrally managed, any manual changes will be OVERWRITTEN #
+##########################################################################
 ## Dovecot configuration file
 
 # If you're in a hurry, see http://wiki.dovecot.org/QuickConfiguration
@@ -15,6 +18,10 @@
 # Paths are also just examples with the real defaults being based on configure
 # options. The paths listed here are for configure --prefix=/usr
 # --sysconfdir=/etc --localstatedir=/var
+
+namespace inbox {
+  inbox = yes
+}
 
 # Protocols we want to be serving.
 #protocols = imap pop3 lmtp

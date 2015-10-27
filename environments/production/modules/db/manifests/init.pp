@@ -1,8 +1,13 @@
 class db {
+#  class { 'mysql':
+#    client_package_name => 'mariadb',
+#    server_package_name => 'mariadb-server',
+#  }
+  include mysql::client
   #### NO FER SERVIR LA CLASSE BACKUP, ET CANVIA EL PASS DE ROOT ###
-  class { '::mysql::server':
-    override_options => {
-      # my.cnf sections
+  class { 'mysql::server':
+    # my.cnf sections
+    override_options     => {
       'mysqld' => {
         'max_connections'    => '100',
         'thread_cache_size'  => '11',
