@@ -39,41 +39,48 @@
     admin          => 'xavi.carrillo@gmail.com',
     logfile        => '/var/log/monit.log',
     interval       => 60, # seconds
-    only_localhost => false, # So that we can check it on  http://puppet.aislada.hi.inet:2812/ (admin/monit)
     allows         => 'admin:monit',
+    only_localhost => false, # So that we can check it on  http://puppet.aislada.hi.inet:2812/ (admin/monit)
   }
-  monit::monitor { 'clamsmtp-clamd':
-    pidfile      => '/var/run/clamd.clamsmtp/clamd.pid',
-    socket       => '/var/run/clamd.clamsmtp/clamd.sock',
-    start_script => '/etc/init.d/clamsmtp-clamd start',
-    stop_script  => '/etc/init.d/clamsmtp-clamd stop',
+  monit::monitor { 'amavis':
+    pidfile      => '/var/run/clamd.amavisd/clamd.pid',
+    start_script => '/bin/systemctl start amavisd',
+    stop_script  => '/bin/systemctl stop amavisd',
     checks       => ["if 3 restarts within 3 cycles then timeout"],
   }
-  monit::monitor { 'spampd':
+
+  monit::monitor { 'spamassassin':
     pidfile      => '/var/run/spampd.pid',
-    start_script => '/etc/init.d/spampd start',
-    stop_script  => '/etc/init.d/spampd stop',
+    start_script => '/bin/systemctl start spamassassin',
+    stop_script  => '/bin/systemctl stop spamassassin',
     checks       => ["if 3 restarts within 3 cycles then timeout"],
   }
   monit::monitor { 'dovecot':
     pidfile      => '/var/run/dovecot/master.pid',
-    start_script => '/etc/init.d/dovecot start',
-    stop_script  => '/etc/init.d/dovecot stop',
+    start_script => '/bin/systemctl start dovecot',
+    stop_script  => '/bin/systemctl stop dovecot',
     checks       => ["if 3 restarts within 3 cycles then timeout"],
   }
-  monit::monitor { 'mysqld':
-    pidfile      => '/var/run/mysqld/mysqld.pid',
+  monit::monitor { 'mariadb':
+    pidfile      => '/var/run/mariadb/mariadb.pid',
     socket       => '/var/lib/mysql/mysql.sock',
-    start_script => '/etc/init.d/mysqld start',
-    stop_script  => '/etc/init.d/mysqld stop',
+    start_script => '/bin/systemctl start mariadb',
+    stop_script  => '/bin/systemctl stop mariadb',
     checks       => ["if 3 restarts within 3 cycles then timeout"],
   }
   monit::monitor { 'named':
     pidfile      => '/var/run/named/named.pid',
-    start_script => '/etc/init.d/named start',
-    stop_script  => '/etc/init.d/named stop',
+    start_script => '/bin/systemctl start monit',
+    stop_script  => '/bin/systemctl stop monit',
     checks       => ["if 3 restarts within 3 cycles then timeout"],
   }
+  monit::monitor { 'httpd':
+    pidfile      => '/var/run/httpd/httpd.pid',
+    start_script => '/bin/systemctl start httpd',
+    stop_script  => '/bin/systemctl stop httpd',
+    checks       => ["if 3 restarts within 3 cycles then timeout"],
+  }
+
 
 
   class { 'yum-cron':
